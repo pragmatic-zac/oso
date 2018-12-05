@@ -1,5 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import Home from "./home/Home"
+import Login from "./authentication/Login"
+import Register from "./authentication/Registration"
 
 class ApplicationViews extends Component {
   state = {
@@ -7,12 +10,32 @@ class ApplicationViews extends Component {
     initialized: false
   };
 
-  render () {
-      return (
-          <React.Fragment>
-              hi! router will go here.
-          </React.Fragment>
-      )
+  render() {
+    return (
+      <React.Fragment>
+        <Route
+          exact
+          path="/home"
+          render={props => {
+            return <Home />;
+          }}
+        />
+        <Route
+          exact
+          path="/login"
+          render={props => {
+            return <Login {...props} users={this.state.users} />;
+          }}
+        />
+        <Route
+          exact
+          path="/register"
+          render={props => {
+            return <Register {...props} users={this.state.users} />;
+          }}
+        />
+      </React.Fragment>
+    );
   }
 }
 
