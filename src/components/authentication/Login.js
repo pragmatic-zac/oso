@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-// would like to break this into two separate pages - one for login and one for registration, but this is functional for now
-// write a function to clear fields after submit pressed
-// get messages out of console and on to page
+// clear fields is built in to semantic ui - refactor to include (if enough time)
+// get feedback messages out of console and on to page
 
 export default class Login extends Component {
   // Set initial state
@@ -68,7 +67,6 @@ export default class Login extends Component {
 
   render() {
     return (
-      // leaving in this basic form for now, but we can refactor with multiple semantic UI forms if we have enough time
       <React.Fragment>
         <Form onSubmit={this.verifyUser}>
           <h1 className="">Please sign in</h1>
