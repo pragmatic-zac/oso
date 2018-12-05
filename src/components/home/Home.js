@@ -20,7 +20,7 @@ export default class Home extends Component {
     return (
       <div className="homeContainer">
         <div>
-          <h1>Welcome to Nutshell!</h1>
+          <h1>Welcome to Oso!</h1>
           {/* <img src={chipmunk} alt="nutshell_boi" /> */}
           <p>{greeting}</p>
         </div>
