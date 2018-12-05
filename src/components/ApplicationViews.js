@@ -1,14 +1,29 @@
 import { Route } from "react-router-dom";
 import React, { Component } from "react";
-import Home from "./home/Home"
-import Login from "./authentication/Login"
-import Register from "./authentication/Registration"
+import Home from "./home/Home";
+import Login from "./authentication/Login";
+import Register from "./authentication/Registration";
+import UserManager from "../managers/UserManager";
 
 class ApplicationViews extends Component {
   state = {
     users: [],
     initialized: false
   };
+
+  componentDidMount() {
+    let usersLoading = UserManager.getAll().then(allUsers => {
+      this.setState({
+        users: allUsers
+      });
+    });
+
+    Promise.all([usersLoading]).then(() => {
+      this.setState({
+        initialized: true
+      });
+    });
+  }
 
   render() {
     return (
