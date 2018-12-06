@@ -1,0 +1,1 @@
+// shows shared decks but does NOT allow edit or delete, just view

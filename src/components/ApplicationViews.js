@@ -11,6 +11,8 @@ import DecksManager from "../managers/DecksManager";
 class ApplicationViews extends Component {
   state = {
     users: [],
+    // eventually use this to store current user
+    // currentUser: [],
     decks: [],
     initialized: false
   };

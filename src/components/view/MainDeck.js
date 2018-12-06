@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header } from "semantic-ui-react";
+import { Header, Card } from "semantic-ui-react";
 
 export default class MainDeck extends Component {
   // set initial state
@@ -7,41 +7,57 @@ export default class MainDeck extends Component {
     decks: []
   };
 
-  // method to fetch all decks
+  // method to fetch all decks - not currently being used, as data is fetched in top level component
   getDecks = () => {
-    return fetch("http://localhost:5002/decks").then(data => data.json())
+    return fetch("http://localhost:5002/decks").then(data => data.json());
   };
 
   componentDidMount() {
-    // when the page loads, fetch the decks and put them in state  
-
-    // trying to do this at top level (app views) for now
-    // this.getDecks().then(allDecks => this.setState({
-    //     decks: allDecks
-    //   }))
-
-    console.log("main deck component mounted")
+    // console.log("main deck component mounted");
   }
 
-  
-
   render() {
-
-    console.log(this.props.decks[0].name)
-    // console.log("hello")
-
-
-    // to start, don't worry about getting public and private split out. just get all decks on the page
+    // get current user
+    let currentUser = parseInt(sessionStorage.getItem("userID"));
 
     return (
       <React.Fragment>
         <Header as="h1">View All Decks</Header>
         <div>
-          <h3>Public</h3>
+          <h3>Public Decks</h3>
+
+          {this.props.decks.map(deck => {
+            if (deck.id !== currentUser) {
+              return (
+                <Card
+                  href="#card-example-link-card"
+                  key={deck.id}
+                  header={deck.name}
+                  meta={deck.description}
+                />
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
         <br />
         <div>
-          <h3>Private</h3>
+          <h3>My Decks</h3>
+          {this.props.decks.map(deck => {
+            if (deck.id === currentUser) {
+              return (
+                <Card
+                  href="#card-example-link-card"
+                  key={deck.id}
+                  header={deck.name}
+                  meta={deck.description}
+                />
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
       </React.Fragment>
     );
