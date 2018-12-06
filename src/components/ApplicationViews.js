@@ -36,42 +36,17 @@ class ApplicationViews extends Component {
       });
     });
 
-    let loadUserDecks = DecksManager.getUserDecks(1).then(userDecks => {
-        this.setState({
-            userDecks: userDecks
-        })
-    })
+    let loadUserDecks = DecksManager.getUserDecks(currentUser).then(userDecks => {
+      this.setState({
+        userDecks: userDecks
+      });
+    });
 
-    let loadPublicDecks = DecksManager.getPublicDecks(1).then(publicDecks => {
-        this.setState({
-            publicDecks: publicDecks
-        })
-    })
-
-
-    // these need to live in app views because i'll need them in the quiz/flashcard module
-    // method to get public decks
-    // let getPublicDecks = () => {
-    //   return fetch(`http://localhost:5002/decks?userID_ne=1&shared=true`)
-    //     .then(data => data.json())
-    //     .then(p => {
-    //       this.setState({
-    //         publicDecks: p
-    //       });
-    //     });
-    // };
-
-    // // method to get user decks
-    // let getUserDecks = () => {
-    //   return fetch(`http://localhost:5002/decks?userID=1`)
-    //     .then(data => data.json())
-    //     .then(a => console.log(a))
-    //     .then(userDecks => {
-    //       this.setState({ userDecks: userDecks });
-    //     });
-    // };
-
-
+    let loadPublicDecks = DecksManager.getPublicDecks(currentUser).then(publicDecks => {
+      this.setState({
+        publicDecks: publicDecks
+      });
+    });
 
     Promise.all([
       usersLoading,
