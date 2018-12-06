@@ -76,7 +76,8 @@ class ApplicationViews extends Component {
     Promise.all([
       usersLoading,
       decksLoading,
-      loadUserDecks
+      loadUserDecks,
+      loadPublicDecks
     ]).then(() => {
       this.setState({
         initialized: true
