@@ -36,17 +36,21 @@ class ApplicationViews extends Component {
       });
     });
 
-    let loadUserDecks = DecksManager.getUserDecks(currentUser).then(userDecks => {
-      this.setState({
-        userDecks: userDecks
-      });
-    });
+    let loadUserDecks = DecksManager.getUserDecks(currentUser).then(
+      userDecks => {
+        this.setState({
+          userDecks: userDecks
+        });
+      }
+    );
 
-    let loadPublicDecks = DecksManager.getPublicDecks(currentUser).then(publicDecks => {
-      this.setState({
-        publicDecks: publicDecks
-      });
-    });
+    let loadPublicDecks = DecksManager.getPublicDecks(currentUser).then(
+      publicDecks => {
+        this.setState({
+          publicDecks: publicDecks
+        });
+      }
+    );
 
     Promise.all([
       usersLoading,
@@ -101,9 +105,15 @@ class ApplicationViews extends Component {
             }}
           />
           <Route
-            path="/decks/:deckId(\d+)"
+            path="/maindeck/:deckId(\d+)"
             render={props => {
-              return <DeckDetail {...props} />;
+              return (
+                <DeckDetail
+                  {...props}
+                  publicDecks={this.state.publicDecks}
+                  userDecks={this.state.userDecks}
+                />
+              );
             }}
           />
         </React.Fragment>

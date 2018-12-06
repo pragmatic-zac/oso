@@ -23,7 +23,7 @@ export default class MainDeck extends Component {
             return (
               <Card
                 color="blue"
-                href="#card-example-link-card"
+                href={`/maindeck/${deck.id}`}
                 key={deck.id}
                 header={deck.name}
                 meta={deck.description}
@@ -39,11 +39,12 @@ export default class MainDeck extends Component {
             return (
               <Card
                 color="green"
-                href="#card-example-link-card"
+                href={`/maindeck/${deck.id}`}
                 key={deck.id}
                 header={deck.name}
                 meta={deck.description}
               />
+              
             );
           })}
         </div>
