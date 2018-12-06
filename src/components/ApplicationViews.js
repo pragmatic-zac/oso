@@ -11,13 +11,19 @@ import DecksManager from "../managers/DecksManager";
 class ApplicationViews extends Component {
   state = {
     users: [],
-    // eventually use this to store current user
-    // currentUser: [],
+    currentUser: [],
     decks: [],
+    publicDecks: [],
+    userDecks: [],
     initialized: false
   };
 
   componentDidMount() {
+    const currentUser = parseInt(sessionStorage.getItem("userID"));
+    this.setState({
+      currentUser: currentUser
+    });
+
     let usersLoading = UserManager.getAll().then(allUsers => {
       this.setState({
         users: allUsers
@@ -30,19 +36,40 @@ class ApplicationViews extends Component {
       });
     });
 
-    // not using this right now - trying via Deck Manager instead
-    // let getDecks = () => {
-    //   return fetch("http://localhost:5002/decks")
+    let loadUserDecks = DecksManager.getUserDecks(1).then(userDecks => {
+        this.setState({
+            userDecks: userDecks
+        })
+    })
+
+    // method to get public decks
+    // let getPublicDecks = () => {
+    //   return fetch(`http://localhost:5002/decks?userID_ne=1&shared=true`)
     //     .then(data => data.json())
-    //     // .then(da => console.log(da))
-    //     .then(allDecks =>
+    //     .then(p => {
     //       this.setState({
-    //         decks: allDecks
-    //       })
-    //     );
+    //         publicDecks: p
+    //       });
+    //     });
     // };
 
-    Promise.all([usersLoading, decksLoading]).then(() => {
+    // // method to get user decks
+    // let getUserDecks = () => {
+    //   return fetch(`http://localhost:5002/decks?userID=1`)
+    //     .then(data => data.json())
+    //     .then(a => console.log(a))
+    //     .then(userDecks => {
+    //       this.setState({ userDecks: userDecks });
+    //     });
+    // };
+
+
+
+    Promise.all([
+      usersLoading,
+      decksLoading,
+      loadUserDecks
+    ]).then(() => {
       this.setState({
         initialized: true
       });
@@ -78,7 +105,15 @@ class ApplicationViews extends Component {
             exact
             path="/maindeck"
             render={props => {
-              return <MainDeck {...props} decks={this.state.decks} />;
+              return (
+                <MainDeck
+                  {...props}
+                  currentUser={this.state.currentUser}
+                  decks={this.state.decks}
+                  publicDecks={this.state.publicDecks}
+                  userDecks={this.state.userDecks}
+                />
+              );
             }}
           />
           <Route
