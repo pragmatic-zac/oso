@@ -66,6 +66,13 @@ export default class MenuExampleHeader extends Component {
           active={activeItem === "home"}
           onClick={this.handleItemClick}
         />
+        <Menu.Item
+            as={Link}
+            to="/maindeck"
+            name="View All Decks"
+            active={activeItem === "View All Decks"}
+            onClick={this.handleItemClick}
+          />
         <Menu.Menu position="right">
           {logButton}
         </Menu.Menu>
