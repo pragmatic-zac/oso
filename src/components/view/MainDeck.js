@@ -4,7 +4,8 @@ import { Header, Card } from "semantic-ui-react";
 export default class MainDeck extends Component {
   // set initial state
   state = {
-    decks: []
+    decks: [],
+    loaded: false
   };
 
   // method to fetch all decks - not currently being used, as data is fetched in top level component
@@ -13,7 +14,12 @@ export default class MainDeck extends Component {
   };
 
   componentDidMount() {
-    // console.log("main deck component mounted");
+    this.getDecks().then(allDecks => {
+      this.setState({
+        decks: allDecks,
+        loaded: true
+      });
+    });
   }
 
   render() {
@@ -26,7 +32,7 @@ export default class MainDeck extends Component {
         <div>
           <h3>Public Decks</h3>
 
-          {this.props.decks.map(deck => {
+          {this.state.decks.map(deck => {
             if (deck.id !== currentUser) {
               return (
                 <Card
@@ -44,7 +50,7 @@ export default class MainDeck extends Component {
         <br />
         <div>
           <h3>My Decks</h3>
-          {this.props.decks.map(deck => {
+          {this.state.decks.map(deck => {
             if (deck.id === currentUser) {
               return (
                 <Card
