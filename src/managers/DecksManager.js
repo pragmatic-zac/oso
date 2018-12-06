@@ -8,8 +8,14 @@ class DeckManager extends APIManager {
   }
 
   getUserDecks(user) {
+    return fetch(`http://localhost:5002/decks?userID=${user}`).then(data =>
+      data.json()
+    );
+  }
+
+  getPublicDecks(user) {
     return fetch(
-      `http://localhost:5002/decks?userID=${user}`
+      `http://localhost:5002/decks?userID_ne=${user}&shared=true`
     ).then(data => data.json());
   }
 

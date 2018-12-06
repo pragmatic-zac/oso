@@ -42,6 +42,14 @@ class ApplicationViews extends Component {
         })
     })
 
+    let loadPublicDecks = DecksManager.getPublicDecks(1).then(publicDecks => {
+        this.setState({
+            publicDecks: publicDecks
+        })
+    })
+
+
+    // these need to live in app views because i'll need them in the quiz/flashcard module
     // method to get public decks
     // let getPublicDecks = () => {
     //   return fetch(`http://localhost:5002/decks?userID_ne=1&shared=true`)
