@@ -123,6 +123,7 @@ class ApplicationViews extends Component {
                   {...props}
                   publicDecks={this.state.publicDecks}
                   userDecks={this.state.userDecks}
+                  allCards={this.state.allCards}
                 />
               );
             }}
