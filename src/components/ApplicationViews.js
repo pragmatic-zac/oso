@@ -7,6 +7,7 @@ import UserManager from "../managers/UserManager";
 import MainDeck from "./view/MainDeck";
 import DeckDetail from "./view/DeckDetail";
 import DecksManager from "../managers/DecksManager";
+import CardManager from "../managers/CardManager";
 
 class ApplicationViews extends Component {
   state = {
@@ -15,6 +16,7 @@ class ApplicationViews extends Component {
     decks: [],
     publicDecks: [],
     userDecks: [],
+    allCards: [],
     initialized: false
   };
 
@@ -52,11 +54,20 @@ class ApplicationViews extends Component {
       }
     );
 
+    let loadCards = CardManager.getAll().then(
+        allCards => {
+          this.setState({
+            allCards: allCards
+          });
+        }
+      );
+
     Promise.all([
       usersLoading,
       decksLoading,
       loadUserDecks,
-      loadPublicDecks
+      loadPublicDecks,
+      loadCards
     ]).then(() => {
       this.setState({
         initialized: true
