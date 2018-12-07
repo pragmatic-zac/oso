@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 // import CardManager from "../../managers/CardManager";
-import { Grid } from "semantic-ui-react";
+import { Grid, Button } from "semantic-ui-react";
 import CardDisplay from "./CardDisplay";
-import PublicCardDisplay from "./PublicCardDisplay"
+import PublicCardDisplay from "./PublicCardDisplay";
 
 // this is where user will see all of the cards in one deck
 // for USER decks
@@ -29,55 +29,62 @@ export default class DeckDetail extends Component {
         a => a.id === parseInt(this.props.match.params.deckId)
       ) || {};
 
-      // this was original code - changed from userDecks to allDecks (to properly handle whether user clicked a public or private deck)
-      // const deck =
-      // this.props.userDecks.find(
-      //   a => a.id === parseInt(this.props.match.params.deckId)
-      // ) || {};
+    // this was original code - changed from userDecks to allDecks (to properly handle whether user clicked a public or private deck)
+    // const deck =
+    // this.props.userDecks.find(
+    //   a => a.id === parseInt(this.props.match.params.deckId)
+    // ) || {};
 
     console.log(deck);
 
-    /////
-    // below is from working with join table - changed database to be easier to work with, therefore below is not currently applicable
-    // but keeping (for now) in case I need to come back to it
+    let deleteDeckBtn = "";
 
-    // this is working, returns an array
-    // let filtered = this.props.deckCards.filter(function(item) {
-    //   return item.deckID === deck.id;
-    // });
-
-    // console.log(filtered);
-
-    // now I have filtered array, which tells me what cards to go get
-    // how do I use filtered to get to those specific cards?
-
-    // let newArr = filtered.map(a => {
-    //   if (a.cardID === this.props.allCards[0].id) {
-    //     return this.props.allCards[0];
-    //   } else {
-    //     return false;
-    //   }
-    // });
-    // console.log(newArr);
-
-    ////
+    if (deck.userID === this.props.currentUser) {
+      deleteDeckBtn = (
+        <Button
+          basic
+          size="tiny"
+          icon="delete"
+          color="red"
+          content="Delete Deck"
+          onClick={() => {
+            console.log("delete deck clicked");
+          }}
+        />
+      );
+    } else {
+      deleteDeckBtn = null;
+    }
 
     if (this.state.loaded) {
       return (
         <React.Fragment>
           <section>
-            <h1>{deck.name} (deck details)</h1>
+            <h1>
+              {deck.name} (deck details) {deleteDeckBtn}
+            </h1>
             <div key={deck.id}>Description: {deck.description}</div>
           </section>
           <br />
           <Grid columns={3}>
             {this.props.allCards.map(card => {
-              if (card.deckID === deck.id && deck.userID === this.props.currentUser) {
+              if (
+                card.deckID === deck.id &&
+                deck.userID === this.props.currentUser
+              ) {
                 return (
                   <CardDisplay key={card.id} card={card} {...this.props} />
-                )
+                );
               } else if (card.deckID === deck.id) {
-                return <PublicCardDisplay key={card.id} card={card} {...this.props} />
+                return (
+                  <PublicCardDisplay
+                    key={card.id}
+                    card={card}
+                    {...this.props}
+                  />
+                );
+              } else {
+                return null;
               }
             })}
           </Grid>
