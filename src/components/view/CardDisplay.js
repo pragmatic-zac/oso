@@ -33,7 +33,7 @@ export default class MainDeck extends Component {
                     basic
                     color="red"
                     onClick={() => {
-                      console.log("delete clicked");
+                      this.props.deleteCard(this.props.card.id);
                     }}
                   >
                     Delete

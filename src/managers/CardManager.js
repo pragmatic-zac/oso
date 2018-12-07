@@ -27,6 +27,11 @@ class CardManager extends APIManager {
     return fetch(`http://localhost:5002/cards?deckID=${deckID}`).then(data => data.json());
   }
 
+  deleteCardAndList(id) {
+    return this.delete(id).then(() => this.all())
+  }
+
+
   //   removeAndList(id) {
   //     return this.delete(id).then(() => this.all())
   //   }

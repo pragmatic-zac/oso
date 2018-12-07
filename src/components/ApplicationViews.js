@@ -81,6 +81,16 @@ class ApplicationViews extends Component {
     });
   }
 
+  // thought - this is going to reset state on allCards, but not on usercards or publiccards. should I refetch them here too?
+  // or should I refactor the way I'm displaying public and private decks? that will be a lot of work so going to get this working for now, but keep it in mind
+  deleteCard = id => {
+    CardManager.deleteCardAndList(id).then(allCards => {
+      this.setState({
+        allCards: allCards
+      });
+    });
+  };
+
   render() {
     if (this.state.initialized) {
       return (
@@ -133,6 +143,7 @@ class ApplicationViews extends Component {
                   deckCards={this.state.deckCards}
                   allDecks={this.state.allDecks}
                   currentUser={this.state.currentUser}
+                  deleteCard={this.deleteCard}
                 />
               );
             }}
