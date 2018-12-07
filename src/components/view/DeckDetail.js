@@ -15,24 +15,30 @@ export default class DeckDetail extends Component {
   };
 
   componentWillMount() {
-    CardManager.getCardsInDeck(1).then(deckCards => {
-      this.setState({
-        deckCards: deckCards
-      });
-    });
+    // CardManager.getCardsInDeck(1).then(deckCards => {
+    //   this.setState({
+    //     deckCards: deckCards
+    //   });
+    // });
   }
 
   render() {
     const deck =
-      this.props.userDecks.find(
+      this.props.allDecks.find(
         a => a.id === parseInt(this.props.match.params.deckId)
       ) || {};
 
-    // console.log(this.props.allCards);
+      // this was original code - changed from userDecks to allDecks (to properly handle whether user clicked a public or private deck)
+      // const deck =
+      // this.props.userDecks.find(
+      //   a => a.id === parseInt(this.props.match.params.deckId)
+      // ) || {};
 
-    // console.log(this.props.deckCards);
-    // console.log("current deck id: " + deck.id);
-    // console.log(this.props.allCards);
+    // console.log(deck);
+
+    /////
+    // below is from working with join table - changed database to be easier to work with, therefore below is not currently applicable
+    // but keeping (for now) in case I need to come back to it
 
     // this is working, returns an array
     // let filtered = this.props.deckCards.filter(function(item) {
@@ -53,9 +59,7 @@ export default class DeckDetail extends Component {
     // });
     // console.log(newArr);
 
-    // but I need to be able to get this down to 1 lower level component, Flashcard (this will handle display of each card)
-
-    ///
+    ////
 
     if (this.state.loaded) {
       return (
@@ -65,7 +69,7 @@ export default class DeckDetail extends Component {
             <div key={deck.id}>Description: {deck.description}</div>
           </section>
           <br />
-          <Grid columns={3} >
+          <Grid columns={3}>
             {this.props.allCards.map(card => {
               if (card.deckID === deck.id) {
                 return (

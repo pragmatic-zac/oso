@@ -13,7 +13,7 @@ class ApplicationViews extends Component {
   state = {
     users: [],
     currentUser: [],
-    decks: [],
+    allDecks: [],
     publicDecks: [],
     userDecks: [],
     allCards: [],
@@ -35,7 +35,7 @@ class ApplicationViews extends Component {
 
     let decksLoading = DecksManager.getAll().then(allDecks => {
       this.setState({
-        decks: allDecks
+        allDecks: allDecks
       });
     });
 
@@ -131,6 +131,7 @@ class ApplicationViews extends Component {
                   userDecks={this.state.userDecks}
                   allCards={this.state.allCards}
                   deckCards={this.state.deckCards}
+                  allDecks={this.state.allDecks}
                 />
               );
             }}
