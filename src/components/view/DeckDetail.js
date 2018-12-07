@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CardManager from "../../managers/CardManager";
+// import CardManager from "../../managers/CardManager";
 // import { Header } from "semantic-ui-react";
 
 // this is where user will see all of the cards in one deck
@@ -10,17 +10,18 @@ export default class DeckDetail extends Component {
   state = {
     cards: [],
     deckCards: [],
-    loaded: false
+    loaded: true
   };
 
   componentDidMount() {
     // CardManager.getDeckCards().then(data => {console.log(data)})
-    CardManager.getDeckCards().then(deckCards => {
-      this.setState({
-        deckCards: deckCards,
-        loaded: true
-      });
-    });
+    // CardManager.getDeckCards().then(deckCards => {
+    //   this.setState({
+    //     deckCards: deckCards,
+    //     loaded: true
+    //   });
+    // });
+    // this.setState({loaded: true})
   }
 
   render() {
@@ -31,11 +32,14 @@ export default class DeckDetail extends Component {
 
     // console.log(this.props.allCards);
 
-    // problem => this console log is being hit before the state updates. does componentdidmount not fix this?
-    console.log(this.state.deckCards)
+    console.log(this.props.deckCards)
     console.log(deck);
 
-    // let filtered = this.state.deckCards.filter
+    let filtered = this.props.deckCards.filter(function(item){
+      return item.deckID === 1
+    })
+
+    console.log(filtered)
 
     if (this.state.loaded) {
       return (
@@ -43,7 +47,7 @@ export default class DeckDetail extends Component {
           <h1>Detail page: {deck.name}</h1>
           <div key={deck.id}>{deck.description}</div>
           <p>{this.props.allCards[0].front}</p>
-          <p>{this.state.deckCards[0].id}</p>
+          <p>{this.props.deckCards[0].id}</p>
         </section>
       );
     } else {

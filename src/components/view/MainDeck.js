@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Header, Card } from "semantic-ui-react";
+// import CardManager from "../../managers/CardManager"
 
 export default class MainDeck extends Component {
   // set initial state
@@ -9,6 +10,7 @@ export default class MainDeck extends Component {
 
   componentDidMount() {
     // was fetching user and public decks here, but moved those to app views because that data is needed elsewhere
+
   }
 
   render() {

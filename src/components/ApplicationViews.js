@@ -17,6 +17,7 @@ class ApplicationViews extends Component {
     publicDecks: [],
     userDecks: [],
     allCards: [],
+    deckCards: [],
     initialized: false
   };
 
@@ -54,20 +55,25 @@ class ApplicationViews extends Component {
       }
     );
 
-    let loadCards = CardManager.getAll().then(
-        allCards => {
-          this.setState({
-            allCards: allCards
-          });
-        }
-      );
+    let loadCards = CardManager.getAll().then(allCards => {
+      this.setState({
+        allCards: allCards
+      });
+    });
+
+    let loadDeckCards = CardManager.getDeckCards().then(deckCards => {
+      this.setState({
+        deckCards: deckCards
+      });
+    });
 
     Promise.all([
       usersLoading,
       decksLoading,
       loadUserDecks,
       loadPublicDecks,
-      loadCards
+      loadCards,
+      loadDeckCards
     ]).then(() => {
       this.setState({
         initialized: true
@@ -124,6 +130,7 @@ class ApplicationViews extends Component {
                   publicDecks={this.state.publicDecks}
                   userDecks={this.state.userDecks}
                   allCards={this.state.allCards}
+                  deckCards={this.state.deckCards}
                 />
               );
             }}
