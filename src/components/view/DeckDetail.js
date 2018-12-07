@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CardManager from "../../managers/CardManager";
-// import { Card, Button } from "semantic-ui-react";
-import CardDisplay from "./CardDisplay"
+import { Grid } from "semantic-ui-react";
+import CardDisplay from "./CardDisplay";
 
 // this is where user will see all of the cards in one deck
 // for USER decks
@@ -65,15 +65,17 @@ export default class DeckDetail extends Component {
             <div key={deck.id}>Description: {deck.description}</div>
           </section>
           <br />
-
-          {this.props.allCards.map(card => {
-            if (card.deckID === deck.id) {
-              return <CardDisplay key={card.id} card={card} {...this.props} />;
-            } else {
-              return null;
-            }
-          })}
-
+          <Grid columns={3} >
+            {this.props.allCards.map(card => {
+              if (card.deckID === deck.id) {
+                return (
+                  <CardDisplay key={card.id} card={card} {...this.props} />
+                );
+              } else {
+                return null;
+              }
+            })}
+          </Grid>
           {/* <Card.Group>
             <Card key={deck.id}>
               <Card.Content>
