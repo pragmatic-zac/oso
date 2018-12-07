@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import CardManager from "../../managers/CardManager";
+// import CardManager from "../../managers/CardManager";
 import { Grid } from "semantic-ui-react";
 import CardDisplay from "./CardDisplay";
+import PublicCardDisplay from "./PublicCardDisplay"
 
 // this is where user will see all of the cards in one deck
 // for USER decks
@@ -34,7 +35,7 @@ export default class DeckDetail extends Component {
       //   a => a.id === parseInt(this.props.match.params.deckId)
       // ) || {};
 
-    // console.log(deck);
+    console.log(deck);
 
     /////
     // below is from working with join table - changed database to be easier to work with, therefore below is not currently applicable
@@ -71,45 +72,15 @@ export default class DeckDetail extends Component {
           <br />
           <Grid columns={3}>
             {this.props.allCards.map(card => {
-              if (card.deckID === deck.id) {
+              if (card.deckID === deck.id && deck.userID === this.props.currentUser) {
                 return (
                   <CardDisplay key={card.id} card={card} {...this.props} />
-                );
-              } else {
-                return null;
+                )
+              } else if (card.deckID === deck.id) {
+                return <PublicCardDisplay key={card.id} card={card} {...this.props} />
               }
             })}
           </Grid>
-          {/* <Card.Group>
-            <Card key={deck.id}>
-              <Card.Content>
-                <Card.Header>Front of Card</Card.Header>
-                <Card.Description>Back of Card</Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <div className="ui two buttons">
-                  <Button
-                    basic
-                    color="green"
-                    onClick={() => {
-                      console.log("edit clicked");
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    basic
-                    color="red"
-                    onClick={() => {
-                      console.log("delete clicked");
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </Card.Content>
-            </Card>
-          </Card.Group> */}
         </React.Fragment>
       );
     } else {

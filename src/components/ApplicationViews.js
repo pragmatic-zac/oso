@@ -132,6 +132,7 @@ class ApplicationViews extends Component {
                   allCards={this.state.allCards}
                   deckCards={this.state.deckCards}
                   allDecks={this.state.allDecks}
+                  currentUser={this.state.currentUser}
                 />
               );
             }}

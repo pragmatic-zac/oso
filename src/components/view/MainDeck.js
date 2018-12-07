@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Card, Button } from "semantic-ui-react";
+import { Header, Card } from "semantic-ui-react";
 // import CardManager from "../../managers/CardManager"
 
 export default class MainDeck extends Component {
