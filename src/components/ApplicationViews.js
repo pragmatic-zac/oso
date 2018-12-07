@@ -7,14 +7,17 @@ import UserManager from "../managers/UserManager";
 import MainDeck from "./view/MainDeck";
 import DeckDetail from "./view/DeckDetail";
 import DecksManager from "../managers/DecksManager";
+import CardManager from "../managers/CardManager";
 
 class ApplicationViews extends Component {
   state = {
     users: [],
     currentUser: [],
-    decks: [],
+    allDecks: [],
     publicDecks: [],
     userDecks: [],
+    allCards: [],
+    deckCards: [],
     initialized: false
   };
 
@@ -32,19 +35,35 @@ class ApplicationViews extends Component {
 
     let decksLoading = DecksManager.getAll().then(allDecks => {
       this.setState({
-        decks: allDecks
+        allDecks: allDecks
       });
     });
 
-    let loadUserDecks = DecksManager.getUserDecks(currentUser).then(userDecks => {
+    let loadUserDecks = DecksManager.getUserDecks(currentUser).then(
+      userDecks => {
+        this.setState({
+          userDecks: userDecks
+        });
+      }
+    );
+
+    let loadPublicDecks = DecksManager.getPublicDecks(currentUser).then(
+      publicDecks => {
+        this.setState({
+          publicDecks: publicDecks
+        });
+      }
+    );
+
+    let loadCards = CardManager.getAll().then(allCards => {
       this.setState({
-        userDecks: userDecks
+        allCards: allCards
       });
     });
 
-    let loadPublicDecks = DecksManager.getPublicDecks(currentUser).then(publicDecks => {
+    let loadDeckCards = CardManager.getDeckCards().then(deckCards => {
       this.setState({
-        publicDecks: publicDecks
+        deckCards: deckCards
       });
     });
 
@@ -52,7 +71,9 @@ class ApplicationViews extends Component {
       usersLoading,
       decksLoading,
       loadUserDecks,
-      loadPublicDecks
+      loadPublicDecks,
+      loadCards,
+      loadDeckCards
     ]).then(() => {
       this.setState({
         initialized: true
@@ -101,9 +122,19 @@ class ApplicationViews extends Component {
             }}
           />
           <Route
-            path="/decks/:deckId(\d+)"
+            path="/maindeck/:deckId(\d+)"
             render={props => {
-              return <DeckDetail {...props} />;
+              return (
+                <DeckDetail
+                  {...props}
+                  publicDecks={this.state.publicDecks}
+                  userDecks={this.state.userDecks}
+                  allCards={this.state.allCards}
+                  deckCards={this.state.deckCards}
+                  allDecks={this.state.allDecks}
+                  currentUser={this.state.currentUser}
+                />
+              );
             }}
           />
         </React.Fragment>
