@@ -23,8 +23,8 @@ class CardManager extends APIManager {
   }
 
   // hardcoded for now, eventually "deck" needs to be in here on deck detail page where I'm calling it
-  getCardsInDeck() {
-    return fetch(`http://localhost:5002/cards?deckID=1`).then(data => data.json());
+  getCardsInDeck(deckID) {
+    return fetch(`http://localhost:5002/cards?deckID=${deckID}`).then(data => data.json());
   }
 
   //   removeAndList(id) {

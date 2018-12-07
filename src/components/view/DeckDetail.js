@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CardManager from "../../managers/CardManager";
-import { Card, Button } from "semantic-ui-react";
+// import { Card, Button } from "semantic-ui-react";
+import CardDisplay from "./CardDisplay"
 
 // this is where user will see all of the cards in one deck
 // for USER decks
@@ -14,7 +15,7 @@ export default class DeckDetail extends Component {
   };
 
   componentWillMount() {
-    CardManager.getCardsInDeck().then(deckCards => {
+    CardManager.getCardsInDeck(1).then(deckCards => {
       this.setState({
         deckCards: deckCards
       });
@@ -27,8 +28,7 @@ export default class DeckDetail extends Component {
         a => a.id === parseInt(this.props.match.params.deckId)
       ) || {};
 
-    
-    console.log(this.state.deckCards)  
+    // console.log(this.props.allCards);
 
     // console.log(this.props.deckCards);
     // console.log("current deck id: " + deck.id);
@@ -55,9 +55,6 @@ export default class DeckDetail extends Component {
 
     // but I need to be able to get this down to 1 lower level component, Flashcard (this will handle display of each card)
 
-    // also, once I figure this out, I need to figure out how to change my fetch depending on what screen I'm on. Currently deckID=1 is hardcoded in to the fetch
-    // if events bubble up, can I get {deck} passed up to app views to re-fetch?
-
     ///
 
     if (this.state.loaded) {
@@ -68,12 +65,19 @@ export default class DeckDetail extends Component {
             <div key={deck.id}>Description: {deck.description}</div>
           </section>
           <br />
-          {/* this will need to be a lower level component */}
-          <Card.Group>
+
+          {this.props.allCards.map(card => {
+            if (card.deckID === deck.id) {
+              return <CardDisplay key={card.id} card={card} {...this.props} />;
+            } else {
+              return null;
+            }
+          })}
+
+          {/* <Card.Group>
             <Card key={deck.id}>
               <Card.Content>
                 <Card.Header>Front of Card</Card.Header>
-                {/* <Card.Header>{newArr[0].front}</Card.Header> */}
                 <Card.Description>Back of Card</Card.Description>
               </Card.Content>
               <Card.Content extra>
@@ -99,7 +103,7 @@ export default class DeckDetail extends Component {
                 </div>
               </Card.Content>
             </Card>
-          </Card.Group>
+          </Card.Group> */}
         </React.Fragment>
       );
     } else {
