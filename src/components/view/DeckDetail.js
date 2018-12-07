@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import CardManager from "../../managers/CardManager";
+import CardManager from "../../managers/CardManager";
 import { Card, Button } from "semantic-ui-react";
 
 // this is where user will see all of the cards in one deck
@@ -13,15 +13,12 @@ export default class DeckDetail extends Component {
     loaded: true
   };
 
-  componentDidMount() {
-
-    // CardManager.getDeckCards().then(deckCards => {
-    //   this.setState({
-    //     deckCards: deckCards
-    //   });
-    // });
-
-
+  componentWillMount() {
+    CardManager.getCardsInDeck().then(deckCards => {
+      this.setState({
+        deckCards: deckCards
+      });
+    });
   }
 
   render() {
@@ -30,34 +27,33 @@ export default class DeckDetail extends Component {
         a => a.id === parseInt(this.props.match.params.deckId)
       ) || {};
 
+    
+    console.log(this.state.deckCards)  
+
+    // console.log(this.props.deckCards);
+    // console.log("current deck id: " + deck.id);
     // console.log(this.props.allCards);
 
-    console.log(this.props.deckCards);
-    console.log("current deck id: " + deck.id);
-    console.log(this.props.allCards);
-
     // this is working, returns an array
-    let filtered = this.props.deckCards.filter(function(item) {
-      return item.deckID === deck.id;
-    });
+    // let filtered = this.props.deckCards.filter(function(item) {
+    //   return item.deckID === deck.id;
+    // });
 
-    console.log(filtered);
+    // console.log(filtered);
 
     // now I have filtered array, which tells me what cards to go get
-
     // how do I use filtered to get to those specific cards?
 
-    let newArr = filtered.map(a => {
-      if (a.cardID === this.props.allCards[0].id) {
-        return this.props.allCards[0];
-      } else {
-        return false;
-      }
-    });
+    // let newArr = filtered.map(a => {
+    //   if (a.cardID === this.props.allCards[0].id) {
+    //     return this.props.allCards[0];
+    //   } else {
+    //     return false;
+    //   }
+    // });
+    // console.log(newArr);
 
     // but I need to be able to get this down to 1 lower level component, Flashcard (this will handle display of each card)
-
-    console.log(newArr);
 
     // also, once I figure this out, I need to figure out how to change my fetch depending on what screen I'm on. Currently deckID=1 is hardcoded in to the fetch
     // if events bubble up, can I get {deck} passed up to app views to re-fetch?
@@ -70,8 +66,6 @@ export default class DeckDetail extends Component {
           <section>
             <h1>{deck.name} (deck details)</h1>
             <div key={deck.id}>Description: {deck.description}</div>
-            {/* <p>{this.props.allCards[0].front}</p> */}
-            {/* <p>{this.props.deckCards[0].id}</p> */}
           </section>
           <br />
           {/* this will need to be a lower level component */}
@@ -79,7 +73,7 @@ export default class DeckDetail extends Component {
             <Card key={deck.id}>
               <Card.Content>
                 <Card.Header>Front of Card</Card.Header>
-                <Card.Header>{newArr[0].front}</Card.Header>
+                {/* <Card.Header>{newArr[0].front}</Card.Header> */}
                 <Card.Description>Back of Card</Card.Description>
               </Card.Content>
               <Card.Content extra>
