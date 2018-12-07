@@ -14,14 +14,14 @@ export default class DeckDetail extends Component {
   };
 
   componentDidMount() {
-    // CardManager.getDeckCards().then(data => {console.log(data)})
+
     // CardManager.getDeckCards().then(deckCards => {
     //   this.setState({
-    //     deckCards: deckCards,
-    //     loaded: true
+    //     deckCards: deckCards
     //   });
     // });
-    // this.setState({loaded: true})
+
+
   }
 
   render() {
@@ -33,11 +33,12 @@ export default class DeckDetail extends Component {
     // console.log(this.props.allCards);
 
     console.log(this.props.deckCards);
-    console.log(deck);
+    console.log("current deck id: " + deck.id);
     console.log(this.props.allCards);
 
+    // this is working, returns an array
     let filtered = this.props.deckCards.filter(function(item) {
-      return item.deckID === 1;
+      return item.deckID === deck.id;
     });
 
     console.log(filtered);
@@ -48,15 +49,18 @@ export default class DeckDetail extends Component {
 
     let newArr = filtered.map(a => {
       if (a.cardID === this.props.allCards[0].id) {
-        return true;
+        return this.props.allCards[0];
       } else {
         return false;
       }
     });
 
+    // but I need to be able to get this down to 1 lower level component, Flashcard (this will handle display of each card)
+
     console.log(newArr);
 
     // also, once I figure this out, I need to figure out how to change my fetch depending on what screen I'm on. Currently deckID=1 is hardcoded in to the fetch
+    // if events bubble up, can I get {deck} passed up to app views to re-fetch?
 
     ///
 
@@ -64,24 +68,38 @@ export default class DeckDetail extends Component {
       return (
         <React.Fragment>
           <section>
-            <h1>Detail page: {deck.name}</h1>
-            <div key={deck.id}>{deck.description}</div>
-            <p>{this.props.allCards[0].front}</p>
+            <h1>{deck.name} (deck details)</h1>
+            <div key={deck.id}>Description: {deck.description}</div>
+            {/* <p>{this.props.allCards[0].front}</p> */}
             {/* <p>{this.props.deckCards[0].id}</p> */}
           </section>
           <br />
+          {/* this will need to be a lower level component */}
           <Card.Group>
             <Card key={deck.id}>
               <Card.Content>
                 <Card.Header>Front of Card</Card.Header>
+                <Card.Header>{newArr[0].front}</Card.Header>
                 <Card.Description>Back of Card</Card.Description>
               </Card.Content>
               <Card.Content extra>
                 <div className="ui two buttons">
-                  <Button basic color="green">
+                  <Button
+                    basic
+                    color="green"
+                    onClick={() => {
+                      console.log("edit clicked");
+                    }}
+                  >
                     Edit
                   </Button>
-                  <Button basic color="red">
+                  <Button
+                    basic
+                    color="red"
+                    onClick={() => {
+                      console.log("delete clicked");
+                    }}
+                  >
                     Delete
                   </Button>
                 </div>

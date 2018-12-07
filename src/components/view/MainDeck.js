@@ -17,7 +17,7 @@ export default class MainDeck extends Component {
     console.log(this.props.userDecks);
     return (
       <React.Fragment>
-        <Header as="h1">View All Decks</Header>
+        <Header as="h1">All Decks</Header>
         <div>
           <h3>Public Decks</h3>
 
