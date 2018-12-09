@@ -2,6 +2,8 @@ import APIManager from "./APIManager";
 
 // card manager to handle database interactions for individual cards
 
+const remURL = "http://localhost:5002"
+
 class CardManager extends APIManager {
   // basic fetch to get all cards
   getAll() {
@@ -15,13 +17,6 @@ class CardManager extends APIManager {
     );
   }
 
-  // not using this yet
-  notusedyet(user) {
-    return fetch(`http://localhost:5002/cards?userID=${user}`).then(data =>
-      data.json()
-    );
-  }
-
   // hardcoded for now, eventually "deck" needs to be in here on deck detail page where I'm calling it
   getCardsInDeck(deckID) {
     return fetch(`http://localhost:5002/cards?deckID=${deckID}`).then(data => data.json());
@@ -31,23 +26,22 @@ class CardManager extends APIManager {
     return this.delete(id).then(() => this.all())
   }
 
+  // deleteCardsInDeck(deckID) {
+  //   return this.delete(deckID)
+  // }
+
+  // not using delete from this.delete() because this is a different URL - includes ?deckID query
   deleteCardsInDeck(deckID) {
-    return "fill this out"
+    return fetch(`${remURL}/${this.route}?deckID=${deckID}`, {
+        method: "DELETE"
+      })
+        .then(e => e.json())
+        .then(() => fetch(`${remURL}/${this.route}`))
+        .then(e => e.json())
   }
-
-  //   removeAndList(id) {
-  //     return this.delete(id).then(() => this.all())
-  //   }
-
-  //   post(newUser) {
-  //     return fetch("http://localhost:5002/user", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(newUser)
-  //     }).then(data => data.json())
-  //   }
 }
+
+// localhost:5002/cards?deckID=4
+// `${remURL}/${this.route}?deckID=${deckID}`
 
 export default new CardManager("cards");

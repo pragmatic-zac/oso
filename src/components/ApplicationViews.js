@@ -93,11 +93,23 @@ class ApplicationViews extends Component {
 
   // delete decks and relist - but also delete the cards associated with that deck
   deleteDeckAndCards = deckID => {
+    // commenting out briefly so I can test card deleting
+    // then try to get all of it inside one fetch call
+    // consider setting initialized state to false until the data comes back
+    // and also history.push to maindeck page
+
     DecksManager.deleteDeck(deckID).then(allDecks => {
       this.setState({
         allDecks: allDecks
       });
     });
+
+    // commenting out for now because this is giving a 404 error
+    CardManager.deleteCardsInDeck(deckID).then(allCards => {
+        this.setState({
+            allCards: allCards
+        })
+    })
   };
 
   render() {
