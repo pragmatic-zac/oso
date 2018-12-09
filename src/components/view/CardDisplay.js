@@ -5,7 +5,9 @@ export default class MainDeck extends Component {
   state = {
     showCardUpdate: false,
     backUpdateValue: "",
-    frontUpdateValue: ""
+    frontUpdateValue: "",
+    front: this.props.card.front,
+    back: this.props.card.back
   };
 
   onChange = e => {
@@ -16,8 +18,8 @@ export default class MainDeck extends Component {
     e.preventDefault();
     // now turn it in to an object
     const editedCard = {
-      front: this.state.frontUpdateValue,
-      back: this.state.backUpdateValue
+      front: this.state.front,
+      back: this.state.back
     };
     // console.log(editedCard);
 
@@ -31,10 +33,10 @@ export default class MainDeck extends Component {
   };
 
   render() {
-    const { showCardUpdate, backUpdateValue, frontUpdateValue } = this.state;
+    const { showCardUpdate } = this.state;
 
     // I want this in a modal, but for now, starting with inline edit
-    // going to need an edit form for both front and back of card
+
     let backEditForm = "";
     let frontEditForm = "";
 
@@ -43,9 +45,9 @@ export default class MainDeck extends Component {
         <Form onSubmit={this.editSubmit}>
           <Input
             type="text"
-            name="backUpdateValue"
-            placeholder={this.props.card.back}
-            value={backUpdateValue}
+            name="back"
+            // placeholder={this.props.card.back}
+            value={this.state.back}
             onChange={this.onChange}
           />
           <Button type="submit">Save</Button>
@@ -55,9 +57,9 @@ export default class MainDeck extends Component {
         <Form onSubmit={this.editSubmit}>
           <Input
             type="text"
-            name="frontUpdateValue"
-            placeholder={this.props.card.front}
-            value={frontUpdateValue}
+            name="front"
+            // placeholder={this.props.card.front}
+            value={this.state.front}
             onChange={this.onChange}
           />
           <Button type="submit">Save</Button>
