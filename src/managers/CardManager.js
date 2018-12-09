@@ -31,6 +31,9 @@ class CardManager extends APIManager {
     return this.delete(id).then(() => this.all())
   }
 
+  deleteCardsInDeck(deckID) {
+    return "fill this out"
+  }
 
   //   removeAndList(id) {
   //     return this.delete(id).then(() => this.all())

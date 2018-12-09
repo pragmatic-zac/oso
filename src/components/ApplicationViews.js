@@ -91,6 +91,15 @@ class ApplicationViews extends Component {
     });
   };
 
+  // delete decks and relist - but also delete the cards associated with that deck
+  deleteDeckAndCards = deckID => {
+    DecksManager.deleteDeck(deckID).then(allDecks => {
+      this.setState({
+        allDecks: allDecks
+      });
+    });
+  };
+
   render() {
     if (this.state.initialized) {
       return (
@@ -144,6 +153,7 @@ class ApplicationViews extends Component {
                   allDecks={this.state.allDecks}
                   currentUser={this.state.currentUser}
                   deleteCard={this.deleteCard}
+                  deleteDeckAndCards={this.deleteDeckAndCards}
                 />
               );
             }}

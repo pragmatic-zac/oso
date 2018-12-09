@@ -48,7 +48,7 @@ export default class DeckDetail extends Component {
           color="red"
           content="Delete Deck"
           onClick={() => {
-            console.log("delete deck clicked");
+            this.props.deleteDeckAndCards(deck.id)
           }}
         />
       );

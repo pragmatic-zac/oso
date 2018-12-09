@@ -13,7 +13,7 @@ export default class MainDeck extends Component {
   }
 
   render() {
-    console.log(this.props.userDecks);
+    // console.log(this.props.userDecks);
     return (
       <React.Fragment>
         <Header as="h1">All Decks</Header>
