@@ -106,10 +106,16 @@ class ApplicationViews extends Component {
 
     // commenting out for now because this is giving a 404 error
     CardManager.deleteCardsInDeck(deckID).then(allCards => {
-        this.setState({
-            allCards: allCards
-        })
-    })
+      this.setState({
+        allCards: allCards
+      });
+    });
+  };
+
+  updateCard = (payload, url) => {
+    CardManager.patchAndListCards(payload, url).then(allCards => {
+      this.setState({ allCards: allCards });
+    });
   };
 
   render() {
@@ -166,6 +172,7 @@ class ApplicationViews extends Component {
                   currentUser={this.state.currentUser}
                   deleteCard={this.deleteCard}
                   deleteDeckAndCards={this.deleteDeckAndCards}
+                  updateCard={this.updateCard}
                 />
               );
             }}

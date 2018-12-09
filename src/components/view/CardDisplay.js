@@ -14,8 +14,20 @@ export default class MainDeck extends Component {
 
   editSubmit = e => {
     e.preventDefault();
-    console.log(this.state.frontUpdateValue);
-    // now stringify and send to database
+    // now turn it in to an object
+    const editedCard = {
+      front: this.state.frontUpdateValue,
+      back: this.state.backUpdateValue
+    };
+    // console.log(editedCard);
+
+    let url = `http://localhost:5002/cards/${this.props.card.id}`;
+
+    // and send to database!
+    this.props.updateCard(editedCard, url);
+
+    // also set state back so that fields go away
+    this.setState({ showCardUpdate: !this.state.showCardUpdate });
   };
 
   render() {

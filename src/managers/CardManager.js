@@ -39,6 +39,14 @@ class CardManager extends APIManager {
         .then(() => fetch(`${remURL}/${this.route}`))
         .then(e => e.json())
   }
+
+  patchAndListCards(payload, url) {
+    return this.patch(payload, url).then(() => this.all())
+  }
+
+
+
+
 }
 
 // localhost:5002/cards?deckID=4
