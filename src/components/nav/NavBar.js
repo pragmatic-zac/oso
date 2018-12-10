@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-// navbar module - conditional 
+// navbar module - conditional
 
 export default class MenuExampleHeader extends Component {
   state = {};
@@ -67,15 +67,20 @@ export default class MenuExampleHeader extends Component {
           onClick={this.handleItemClick}
         />
         <Menu.Item
-            as={Link}
-            to="/maindeck"
-            name="All Decks"
-            active={activeItem === "All Decks"}
-            onClick={this.handleItemClick}
-          />
-        <Menu.Menu position="right">
-          {logButton}
-        </Menu.Menu>
+          as={Link}
+          to="/maindeck"
+          name="All Decks"
+          active={activeItem === "All Decks"}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          as={Link}
+          to="/flashcard"
+          name="Flashcards"
+          active={activeItem === "Flashcards"}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Menu position="right">{logButton}</Menu.Menu>
       </Menu>
     );
   }
