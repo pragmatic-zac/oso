@@ -1,5 +1,6 @@
 import { Route } from "react-router-dom";
 import React, { Component } from "react";
+import { Loader, Segment, Dimmer } from "semantic-ui-react";
 import Home from "./home/Home";
 import Login from "./authentication/Login";
 import Register from "./authentication/Registration";
@@ -93,23 +94,35 @@ class ApplicationViews extends Component {
 
   // delete decks and relist - but also delete the cards associated with that deck
   deleteDeckAndCards = deckID => {
-    // commenting out briefly so I can test card deleting
-    // then try to get all of it inside one fetch call
     // consider setting initialized state to false until the data comes back
     // and also history.push to maindeck page
 
-    DecksManager.deleteDeck(deckID).then(allDecks => {
-      this.setState({
-        allDecks: allDecks
+    DecksManager.deleteDeck(deckID)
+      .then(allDecks => {
+        this.setState({
+          allDecks: allDecks,
+          initialized: false
+        });
+      })
+      .then(() => {
+        // run forEach over allCards - if the card is in the deck we're deleting, delete that card too
+        this.state.allCards.forEach(card => {
+          if (card.deckID === deckID) {
+            // console.log(card)
+            this.deleteCard(card.id);
+          }
+        });
+      })
+      .then(() => {
+        // and now get all the cards again
+        return CardManager.getAll().then(allCards => {
+          this.setState({
+            allCards: allCards,
+            initialized: true
+          });
+        });
       });
-    });
-
-    // commenting out for now because this is giving a 404 error
-    CardManager.deleteCardsInDeck(deckID).then(allCards => {
-      this.setState({
-        allCards: allCards
-      });
-    });
+    //   ^ think I need to return a promise here for .then to work in deck detail (for history push)
   };
 
   updateCard = (payload, url) => {
@@ -200,6 +213,7 @@ class ApplicationViews extends Component {
                   updateCard={this.updateCard}
                   updateDeck={this.updateDeck}
                   postNewCard={this.postNewCard}
+                  //   history={this.history}
                 />
               );
             }}
@@ -207,7 +221,15 @@ class ApplicationViews extends Component {
         </React.Fragment>
       );
     } else {
-      return <React.Fragment>loading...</React.Fragment>;
+      return (
+        <React.Fragment>
+          <Segment>
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          </Segment>
+        </React.Fragment>
+      );
     }
   }
 }
