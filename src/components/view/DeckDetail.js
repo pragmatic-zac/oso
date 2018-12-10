@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 // import CardManager from "../../managers/CardManager";
-import {
-  Grid,
-  Button,
-  Input,
-  Form,
-  Modal,
-  Image,
-  Header
-} from "semantic-ui-react";
+import { Grid, Button, Input, Form, Modal, Header } from "semantic-ui-react";
 import CardDisplay from "./CardDisplay";
 import PublicCardDisplay from "./PublicCardDisplay";
 
@@ -24,7 +16,9 @@ export default class DeckDetail extends Component {
     showDetailsUpdate: false,
     name: "",
     description: "",
-    open: false
+    open: false,
+    newFront: "",
+    newBack: ""
   };
 
   onChange = e => {
@@ -44,6 +38,20 @@ export default class DeckDetail extends Component {
 
     // also set state back so that fields go away
     this.setState({ showDetailsUpdate: !this.state.showDetailsUpdate });
+  };
+
+  newCardSubmit = e => {
+    e.preventDefault();
+    const newCardToSave = {
+      front: this.state.newFront,
+      back: this.state.newBack,
+      deckID: this.state.deck
+    };
+
+    console.log(newCardToSave);
+    this.props.postNewCard(newCardToSave);
+    // set state back so they're not on the next card, close modal
+    this.setState({ front: "", back: "", open: false });
   };
 
   // for modal
@@ -106,20 +114,6 @@ export default class DeckDetail extends Component {
         />
       );
 
-      // trying this in modal instead, see below
-      // createNewBtn = (
-      //   <Button
-      //     basic
-      //     size="tiny"
-      //     icon="add"
-      //     color="green"
-      //     content="Create Card"
-      //     onClick={() => {
-      //       console.log("create boi clicked")
-      //     }}
-      //   />
-      // );
-
       const { open, dimmer } = this.state;
       createNewBtn = (
         <Modal
@@ -132,21 +126,29 @@ export default class DeckDetail extends Component {
             </Button>
           }
         >
-          <Modal.Header>Details</Modal.Header>
+          <Modal.Header>Add New Card</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <Header>Hi</Header>
-              
+              <Form onSubmit={this.newCardSubmit}>
+                <Header>Front</Header>
+                <Input type="text" name="newFront" onChange={this.onChange} />
+                <Header>Back</Header>
+                <Input type="text" name="newBack" onChange={this.onChange} />
+                <Button basic color="green" onClick={() => {}}>
+                  Save Card
+                </Button>
+              </Form>
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={this.close}>Back</Button>
+            {/* unfortunately this does not currently work for submit - known bug */}
             <Button
-              onClick={() => console.log("save new clicked (on modal)")}
+              onClick={() => this.newCardSubmit}
               positive
               icon="add circle"
               labelPosition="right"
-              content="Save Card"
+              content="Save Card*"
             />
           </Modal.Actions>
         </Modal>

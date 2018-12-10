@@ -127,7 +127,13 @@ class ApplicationViews extends Component {
       this.setState({ allDecks: allDecks });
     });
   };
-  
+
+  postNewCard = payload => {
+    CardManager.postAndListCards(payload).then(allCards => {
+      this.setState({ allCards: allCards });
+    });
+  };
+
   ////////
 
   render() {
@@ -186,6 +192,7 @@ class ApplicationViews extends Component {
                   deleteDeckAndCards={this.deleteDeckAndCards}
                   updateCard={this.updateCard}
                   updateDeck={this.updateDeck}
+                  postNewCard={this.postNewCard}
                 />
               );
             }}
