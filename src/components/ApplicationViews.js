@@ -99,7 +99,8 @@ class ApplicationViews extends Component {
     DecksManager.deleteDeck(deckID)
       .then(allDecks => {
         this.setState({
-          allDecks: allDecks
+          allDecks: allDecks,
+          initialized: false
         });
       })
       .then(() => {
@@ -115,7 +116,8 @@ class ApplicationViews extends Component {
         // and now get all the cards again
         return CardManager.getAll().then(allCards => {
           this.setState({
-            allCards: allCards
+            allCards: allCards,
+            initialized: true
           });
         });
       })
