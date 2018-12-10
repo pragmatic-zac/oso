@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 // import CardManager from "../../managers/CardManager";
-import { Grid, Button, Input, Form } from "semantic-ui-react";
+import {
+  Grid,
+  Button,
+  Input,
+  Form,
+  Modal,
+  Image,
+  Header
+} from "semantic-ui-react";
 import CardDisplay from "./CardDisplay";
 import PublicCardDisplay from "./PublicCardDisplay";
 
@@ -8,7 +16,6 @@ import PublicCardDisplay from "./PublicCardDisplay";
 // for USER decks
 
 export default class DeckDetail extends Component {
-  // set initial state
   state = {
     deck: "",
     cards: [],
@@ -16,7 +23,8 @@ export default class DeckDetail extends Component {
     loaded: true,
     showDetailsUpdate: false,
     name: "",
-    description: ""
+    description: "",
+    open: false
   };
 
   onChange = e => {
@@ -25,21 +33,22 @@ export default class DeckDetail extends Component {
 
   editSubmit = e => {
     e.preventDefault();
-    // now turn it in to an object
+
     const editedDeckDetails = {
       name: this.state.name,
       description: this.state.description
     };
-    // console.log(editedCard);
 
     let url = `http://localhost:5002/decks/${this.state.deck}`;
-
-    // and send to database!
     this.props.updateDeck(editedDeckDetails, url);
 
     // also set state back so that fields go away
     this.setState({ showDetailsUpdate: !this.state.showDetailsUpdate });
   };
+
+  // for modal
+  close = () => this.setState({ open: false });
+  show = dimmer => () => this.setState({ dimmer, open: true });
 
   componentWillMount() {
     // NOTE - I do NOT want to have to keep this, but with the way I built public/private decks, this is how it has to work for now
@@ -68,6 +77,7 @@ export default class DeckDetail extends Component {
     let editDeckNameBtn = "";
     let titleUpdateForm = "";
     let detailsUpdateForm = "";
+    let createNewBtn = "";
 
     if (deck.userID === this.props.currentUser) {
       deleteDeckBtn = (
@@ -95,9 +105,56 @@ export default class DeckDetail extends Component {
           }}
         />
       );
+
+      // trying this in modal instead, see below
+      // createNewBtn = (
+      //   <Button
+      //     basic
+      //     size="tiny"
+      //     icon="add"
+      //     color="green"
+      //     content="Create Card"
+      //     onClick={() => {
+      //       console.log("create boi clicked")
+      //     }}
+      //   />
+      // );
+
+      const { open, dimmer } = this.state;
+      createNewBtn = (
+        <Modal
+          dimmer={dimmer}
+          open={open}
+          onClose={this.close}
+          trigger={
+            <Button basic size="tiny" color="green" onClick={this.show(true)}>
+              Add New Card
+            </Button>
+          }
+        >
+          <Modal.Header>Details</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <Header>Hi</Header>
+              
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={this.close}>Back</Button>
+            <Button
+              onClick={() => console.log("save new clicked (on modal)")}
+              positive
+              icon="add circle"
+              labelPosition="right"
+              content="Save Card"
+            />
+          </Modal.Actions>
+        </Modal>
+      );
     } else {
       deleteDeckBtn = null;
       editDeckNameBtn = null;
+      createNewBtn = null;
     }
 
     // form for editing deck details
@@ -140,7 +197,7 @@ export default class DeckDetail extends Component {
             </div>
             <br />
             <div>
-              {editDeckNameBtn} {deleteDeckBtn}
+              {createNewBtn} {editDeckNameBtn} {deleteDeckBtn}
             </div>
           </section>
           <br />

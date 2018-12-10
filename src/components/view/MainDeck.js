@@ -14,12 +14,14 @@ export default class MainDeck extends Component {
 
   render() {
     // console.log(this.props.userDecks);
+
     return (
       <React.Fragment>
         <Header as="h1">All Decks</Header>
         <div>
           <h3>Public Decks</h3>
 
+        {/* on refactor - use a filter here instead of a map. filter by current user */}
           {this.props.publicDecks.map(deck => {
             return (
               <Card color="blue" href={`/maindeck/${deck.id}`} key={deck.id}>
