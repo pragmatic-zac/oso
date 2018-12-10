@@ -97,6 +97,9 @@ export default class DeckDetail extends Component {
           content="Delete Deck"
           onClick={() => {
             this.props.deleteDeckAndCards(deck.id);
+            this.props.history.push("/maindeck");
+            // ^ tried doing a .then here, but not working right now
+            // might need to return a promise from deleteDeckAndCards?
           }}
         />
       );
