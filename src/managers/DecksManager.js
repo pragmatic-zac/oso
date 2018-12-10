@@ -19,6 +19,15 @@ class DeckManager extends APIManager {
     ).then(data => data.json());
   }
 
+  // delete deck and associated cards
+  deleteDeck(deckID) {
+    return this.delete(deckID).then(() => this.all());
+  }
+
+  patchAndListDecks(payload, url) {
+    return this.patch(payload, url).then(() => this.all())
+  }
+
   //   removeAndList(id) {
   //     return this.delete(id).then(() => this.all())
   //   }

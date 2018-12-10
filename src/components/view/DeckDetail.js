@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 // import CardManager from "../../managers/CardManager";
-import { Grid } from "semantic-ui-react";
+import { Grid, Button, Input, Form } from "semantic-ui-react";
 import CardDisplay from "./CardDisplay";
-import PublicCardDisplay from "./PublicCardDisplay"
+import PublicCardDisplay from "./PublicCardDisplay";
 
 // this is where user will see all of the cards in one deck
 // for USER decks
@@ -10,17 +10,52 @@ import PublicCardDisplay from "./PublicCardDisplay"
 export default class DeckDetail extends Component {
   // set initial state
   state = {
+    deck: "",
     cards: [],
     deckCards: [],
-    loaded: true
+    loaded: true,
+    showDetailsUpdate: false,
+    name: "",
+    description: ""
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  editSubmit = e => {
+    e.preventDefault();
+    // now turn it in to an object
+    const editedDeckDetails = {
+      name: this.state.name,
+      description: this.state.description
+    };
+    // console.log(editedCard);
+
+    let url = `http://localhost:5002/decks/${this.state.deck}`;
+
+    // and send to database!
+    this.props.updateDeck(editedDeckDetails, url);
+
+    // also set state back so that fields go away
+    this.setState({ showDetailsUpdate: !this.state.showDetailsUpdate });
   };
 
   componentWillMount() {
-    // CardManager.getCardsInDeck(1).then(deckCards => {
-    //   this.setState({
-    //     deckCards: deckCards
-    //   });
-    // });
+    // NOTE - I do NOT want to have to keep this, but with the way I built public/private decks, this is how it has to work for now
+    // when I refactor how those are displayed, title and description will be available in props
+    // having to do this for now so I can get title/description out of state for EDIT deck
+
+    const deck =
+      this.props.allDecks.find(
+        a => a.id === parseInt(this.props.match.params.deckId)
+      ) || {};
+
+    this.setState({
+      deck: deck.id,
+      name: deck.name,
+      description: deck.description
+    });
   }
 
   render() {
@@ -29,55 +64,105 @@ export default class DeckDetail extends Component {
         a => a.id === parseInt(this.props.match.params.deckId)
       ) || {};
 
-      // this was original code - changed from userDecks to allDecks (to properly handle whether user clicked a public or private deck)
-      // const deck =
-      // this.props.userDecks.find(
-      //   a => a.id === parseInt(this.props.match.params.deckId)
-      // ) || {};
+    let deleteDeckBtn = "";
+    let editDeckNameBtn = "";
+    let titleUpdateForm = "";
+    let detailsUpdateForm = "";
 
-    console.log(deck);
+    if (deck.userID === this.props.currentUser) {
+      deleteDeckBtn = (
+        <Button
+          basic
+          size="tiny"
+          icon="delete"
+          color="red"
+          content="Delete Deck"
+          onClick={() => {
+            this.props.deleteDeckAndCards(deck.id);
+          }}
+        />
+      );
 
-    /////
-    // below is from working with join table - changed database to be easier to work with, therefore below is not currently applicable
-    // but keeping (for now) in case I need to come back to it
+      editDeckNameBtn = (
+        <Button
+          basic
+          size="tiny"
+          icon="edit"
+          color="orange"
+          content="Edit"
+          onClick={() => {
+            this.setState({ showDetailsUpdate: !this.state.showDetailsUpdate });
+          }}
+        />
+      );
+    } else {
+      deleteDeckBtn = null;
+      editDeckNameBtn = null;
+    }
 
-    // this is working, returns an array
-    // let filtered = this.props.deckCards.filter(function(item) {
-    //   return item.deckID === deck.id;
-    // });
+    // form for editing deck details
 
-    // console.log(filtered);
-
-    // now I have filtered array, which tells me what cards to go get
-    // how do I use filtered to get to those specific cards?
-
-    // let newArr = filtered.map(a => {
-    //   if (a.cardID === this.props.allCards[0].id) {
-    //     return this.props.allCards[0];
-    //   } else {
-    //     return false;
-    //   }
-    // });
-    // console.log(newArr);
-
-    ////
+    if (this.state.showDetailsUpdate) {
+      titleUpdateForm = (
+        <Form onSubmit={this.editSubmit}>
+          <Input
+            type="text"
+            name="name"
+            onChange={this.onChange}
+            value={this.state.name}
+          />
+        </Form>
+      );
+      detailsUpdateForm = (
+        <Form onSubmit={this.editSubmit}>
+          <Input
+            type="text"
+            name="description"
+            onChange={this.onChange}
+            value={this.state.description}
+          />
+        </Form>
+      );
+    } else {
+      titleUpdateForm = null;
+      detailsUpdateForm = null;
+    }
 
     if (this.state.loaded) {
       return (
         <React.Fragment>
           <section>
-            <h1>{deck.name} (deck details)</h1>
-            <div key={deck.id}>Description: {deck.description}</div>
+            <h1>
+              {deck.name} {titleUpdateForm}
+            </h1>
+            <div key={deck.id}>
+              Description: {deck.description} {detailsUpdateForm}
+            </div>
+            <br />
+            <div>
+              {editDeckNameBtn} {deleteDeckBtn}
+            </div>
           </section>
           <br />
           <Grid columns={3}>
             {this.props.allCards.map(card => {
-              if (card.deckID === deck.id && deck.userID === this.props.currentUser) {
+              if (
+                card.deckID === deck.id &&
+                deck.userID === this.props.currentUser
+              ) {
                 return (
                   <CardDisplay key={card.id} card={card} {...this.props} />
-                )
+                );
               } else if (card.deckID === deck.id) {
-                return <PublicCardDisplay key={card.id} card={card} {...this.props} />
+                return (
+                  <PublicCardDisplay
+                    key={card.id}
+                    card={card}
+                    {...this.props}
+                  />
+                );
+              } else {
+                return null;
               }
             })}
           </Grid>

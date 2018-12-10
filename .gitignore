@@ -24,3 +24,4 @@ yarn-error.log*
 
 # database
 api/database.json
+api/backupDB.json 

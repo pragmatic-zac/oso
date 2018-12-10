@@ -81,6 +81,55 @@ class ApplicationViews extends Component {
     });
   }
 
+  // thought - this is going to reset state on allCards, but not on usercards or publiccards. should I refetch them here too?
+  // or should I refactor the way I'm displaying public and private decks? that will be a lot of work so going to get this working for now, but keep it in mind
+  deleteCard = id => {
+    CardManager.deleteCardAndList(id).then(allCards => {
+      this.setState({
+        allCards: allCards
+      });
+    });
+  };
+
+  // delete decks and relist - but also delete the cards associated with that deck
+  deleteDeckAndCards = deckID => {
+    // commenting out briefly so I can test card deleting
+    // then try to get all of it inside one fetch call
+    // consider setting initialized state to false until the data comes back
+    // and also history.push to maindeck page
+
+    DecksManager.deleteDeck(deckID).then(allDecks => {
+      this.setState({
+        allDecks: allDecks
+      });
+    });
+
+    // commenting out for now because this is giving a 404 error
+    CardManager.deleteCardsInDeck(deckID).then(allCards => {
+      this.setState({
+        allCards: allCards
+      });
+    });
+  };
+
+  updateCard = (payload, url) => {
+    CardManager.patchAndListCards(payload, url).then(allCards => {
+      this.setState({ allCards: allCards });
+    });
+  };
+  //////
+  // small problem - this is going to reset state on allDecks, but I am using userDecks and publicDecks from separate fetches in MainDeck
+  // perhaps performance would improve if I just used allDecks on MainDeck and that would solve this problem too?
+  // leaving it for now (just to get update functional) but this needs to be addressed
+
+  updateDeck = (payload, url) => {
+    DecksManager.patchAndListDecks(payload, url).then(allDecks => {
+      this.setState({ allDecks: allDecks });
+    });
+  };
+  
+  ////////
+
   render() {
     if (this.state.initialized) {
       return (
@@ -133,6 +182,10 @@ class ApplicationViews extends Component {
                   deckCards={this.state.deckCards}
                   allDecks={this.state.allDecks}
                   currentUser={this.state.currentUser}
+                  deleteCard={this.deleteCard}
+                  deleteDeckAndCards={this.deleteDeckAndCards}
+                  updateCard={this.updateCard}
+                  updateDeck={this.updateDeck}
                 />
               );
             }}
