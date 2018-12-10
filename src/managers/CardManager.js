@@ -2,7 +2,7 @@ import APIManager from "./APIManager";
 
 // card manager to handle database interactions for individual cards
 
-const remURL = "http://localhost:5002"
+const remURL = "http://localhost:5002";
 
 class CardManager extends APIManager {
   // basic fetch to get all cards
@@ -19,34 +19,32 @@ class CardManager extends APIManager {
 
   // hardcoded for now, eventually "deck" needs to be in here on deck detail page where I'm calling it
   getCardsInDeck(deckID) {
-    return fetch(`http://localhost:5002/cards?deckID=${deckID}`).then(data => data.json());
+    return fetch(`http://localhost:5002/cards?deckID=${deckID}`).then(data =>
+      data.json()
+    );
   }
 
   deleteCardAndList(id) {
-    return this.delete(id).then(() => this.all())
+    return this.delete(id).then(() => this.all());
   }
-
-  // deleteCardsInDeck(deckID) {
-  //   return this.delete(deckID)
-  // }
 
   // not using delete from this.delete() because this is a different URL - includes ?deckID query
   deleteCardsInDeck(deckID) {
     return fetch(`${remURL}/${this.route}?deckID=${deckID}`, {
-        method: "DELETE"
-      })
-        .then(e => e.json())
-        .then(() => fetch(`${remURL}/${this.route}`))
-        .then(e => e.json())
+      method: "DELETE"
+    })
+      .then(e => e.json())
+      .then(() => fetch(`${remURL}/${this.route}`))
+      .then(e => e.json());
   }
 
   patchAndListCards(payload, url) {
-    return this.patch(payload, url).then(() => this.all())
+    return this.patch(payload, url).then(() => this.all());
   }
 
-
-
-
+  postAndListCards(payload) {
+    return this.post(payload).then(() => this.all());
+  }
 }
 
 // localhost:5002/cards?deckID=4

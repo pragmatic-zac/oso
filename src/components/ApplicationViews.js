@@ -127,8 +127,20 @@ class ApplicationViews extends Component {
       this.setState({ allDecks: allDecks });
     });
   };
-  
+
+  postNewDeck = payload => {
+    DecksManager.postAndListDecks(payload).then(allDecks => {
+      this.setState({ allDecks: allDecks });
+    });
+  };
+
   ////////
+
+  postNewCard = payload => {
+    CardManager.postAndListCards(payload).then(allCards => {
+      this.setState({ allCards: allCards });
+    });
+  };
 
   render() {
     if (this.state.initialized) {
@@ -166,6 +178,7 @@ class ApplicationViews extends Component {
                   decks={this.state.decks}
                   publicDecks={this.state.publicDecks}
                   userDecks={this.state.userDecks}
+                  postNewDeck={this.postNewDeck}
                 />
               );
             }}
@@ -186,6 +199,7 @@ class ApplicationViews extends Component {
                   deleteDeckAndCards={this.deleteDeckAndCards}
                   updateCard={this.updateCard}
                   updateDeck={this.updateDeck}
+                  postNewCard={this.postNewCard}
                 />
               );
             }}
