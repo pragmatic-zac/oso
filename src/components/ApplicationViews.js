@@ -1,5 +1,6 @@
 import { Route } from "react-router-dom";
 import React, { Component } from "react";
+import { Loader, Segment, Dimmer } from "semantic-ui-react";
 import Home from "./home/Home";
 import Login from "./authentication/Login";
 import Register from "./authentication/Registration";
@@ -120,7 +121,7 @@ class ApplicationViews extends Component {
             initialized: true
           });
         });
-      })
+      });
     //   ^ think I need to return a promise here for .then to work in deck detail (for history push)
   };
 
@@ -212,7 +213,7 @@ class ApplicationViews extends Component {
                   updateCard={this.updateCard}
                   updateDeck={this.updateDeck}
                   postNewCard={this.postNewCard}
-                //   history={this.history}
+                  //   history={this.history}
                 />
               );
             }}
@@ -220,7 +221,15 @@ class ApplicationViews extends Component {
         </React.Fragment>
       );
     } else {
-      return <React.Fragment>loading...</React.Fragment>;
+      return (
+        <React.Fragment>
+          <Segment>
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          </Segment>
+        </React.Fragment>
+      );
     }
   }
 }
