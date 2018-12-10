@@ -25,7 +25,11 @@ class DeckManager extends APIManager {
   }
 
   patchAndListDecks(payload, url) {
-    return this.patch(payload, url).then(() => this.all())
+    return this.patch(payload, url).then(() => this.all());
+  }
+
+  postAndListDecks(payload) {
+    return this.post(payload).then(() => this.all());
   }
 
   //   removeAndList(id) {
