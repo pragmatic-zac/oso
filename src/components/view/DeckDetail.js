@@ -10,12 +10,35 @@ import PublicCardDisplay from "./PublicCardDisplay";
 export default class DeckDetail extends Component {
   // set initial state
   state = {
+    deck: "",
     cards: [],
     deckCards: [],
     loaded: true,
     showDetailsUpdate: false,
     name: "",
     description: ""
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  editSubmit = e => {
+    e.preventDefault();
+    // now turn it in to an object
+    const editedDeckDetails = {
+      name: this.state.name,
+      description: this.state.description
+    };
+    // console.log(editedCard);
+
+    let url = `http://localhost:5002/decks/${this.state.deck}`;
+
+    // and send to database!
+    this.props.updateDeck(editedDeckDetails, url);
+
+    // also set state back so that fields go away
+    this.setState({ showDetailsUpdate: !this.state.showDetailsUpdate });
   };
 
   componentWillMount() {
@@ -29,6 +52,7 @@ export default class DeckDetail extends Component {
       ) || {};
 
     this.setState({
+      deck: deck.id,
       name: deck.name,
       description: deck.description
     });
@@ -80,17 +104,17 @@ export default class DeckDetail extends Component {
 
     if (this.state.showDetailsUpdate) {
       titleUpdateForm = (
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.editSubmit}>
           <Input
             type="text"
-            name="title"
+            name="name"
             onChange={this.onChange}
             value={this.state.name}
           />
         </Form>
       );
       detailsUpdateForm = (
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.editSubmit}>
           <Input
             type="text"
             name="description"

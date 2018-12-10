@@ -185,6 +185,7 @@ class ApplicationViews extends Component {
                   deleteCard={this.deleteCard}
                   deleteDeckAndCards={this.deleteDeckAndCards}
                   updateCard={this.updateCard}
+                  updateDeck={this.updateDeck}
                 />
               );
             }}
