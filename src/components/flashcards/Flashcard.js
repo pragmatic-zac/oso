@@ -37,6 +37,14 @@ export default class FlashcardContainer extends Component {
     return card;
   };
 
+  // same as getRandomCard but it sets state (needed this separate for now, can refactor later, but needed this for onClick of "next card")
+  nextFlashcard = cardsInDeck => {
+    let nextCard = cardsInDeck[Math.floor(Math.random() * cardsInDeck.length)];
+    this.setState({
+      currentCard: nextCard
+    });
+  };
+
   // handles dropdown change/selection
   // adapted from: https://stackoverflow.com/questions/51227359/how-to-retrieve-the-key-into-a-semantic-ui-react-dropdown
   handleChange = (event, data) => {
@@ -60,6 +68,8 @@ export default class FlashcardContainer extends Component {
     // ...........
     // I prefer option 2
 
+    // do a promise.all here and consolidate launchQuiz function into here?
+
     CardManager.getCardsInDeck(this.state.deckSelectedID).then(cards => {
       console.log(cards);
       this.setState({
@@ -78,7 +88,6 @@ export default class FlashcardContainer extends Component {
       cards: currentCards,
       quizSelected: true
     });
-
   };
 
   render() {
@@ -95,7 +104,23 @@ export default class FlashcardContainer extends Component {
     });
 
     if (this.state.quizSelected) {
-      return <Card currentCard={this.state.currentCard} />;
+      return (
+        <React.Fragment>
+          <Card
+            currentCard={this.state.currentCard}
+            getRandomCard={this.getRandomCard}
+          />
+          <div className="flashcard-button-row">
+            <Button
+              basic
+              color="purple"
+              onClick={() => this.nextFlashcard(this.state.cards)}
+            >
+              Next Card
+            </Button>
+          </div>
+        </React.Fragment>
+      );
     } else {
       // return <DeckSelect />
       return (

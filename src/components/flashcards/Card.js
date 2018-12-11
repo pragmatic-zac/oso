@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Card.css";
+import { Button } from "semantic-ui-react";
 
 // this is where the test itself will live
 
@@ -17,6 +18,11 @@ export default class CardModule extends Component {
             {this.props.currentCard.back}
           </div>
         </div>
+        {/* <div className="flashcard-button-row">
+          <Button basic color="purple" onClick={() => this.props.getRandomCard()}>
+            Next Card
+          </Button>
+        </div> */}
       </div>
     );
   }
