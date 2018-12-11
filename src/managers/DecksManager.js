@@ -32,6 +32,10 @@ class DeckManager extends APIManager {
     return this.post(payload).then(() => this.all());
   }
 
+  getSpecificDeck(id) {
+    return this.get(id);
+  }
+
   //   removeAndList(id) {
   //     return this.delete(id).then(() => this.all())
   //   }

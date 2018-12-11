@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import "./Flashcard.css";
 import Card from "./Card";
 // import DeckSelect from "./DeckSelect";
-import { Form, Button, Header } from "semantic-ui-react";
+import { Form, Button, Header, Grid } from "semantic-ui-react";
 import CardManager from "../../managers/CardManager";
+import DecksManager from "../../managers/DecksManager";
+import SelectedDetail from "./SelectedDetail";
 
 // this is the container for the testing portion of the app
 
@@ -48,6 +50,14 @@ export default class FlashcardContainer extends Component {
         cards: cards
       });
     });
+
+    // fetch details about selected deck
+    DecksManager.getSpecificDeck(key).then(deck => {
+      console.log(deck);
+      this.setState({
+        deckSelected: deck
+      });
+    });
   };
 
   // handles dropdown submit - not using, functionality moved to handleChange above
@@ -83,9 +93,9 @@ export default class FlashcardContainer extends Component {
 
   render() {
     // loop over decks and make a new array that is formatted to work with Semantic's dropdown
-    const options2 = this.props.allDecks.map(deck => {
-      return { key: deck.id, text: deck.name, value: deck.name };
-    });
+    // const options2 = this.props.allDecks.map(deck => {
+    //   return { key: deck.id, text: deck.name, value: deck.name };
+    // });
 
     // need two decks - run a forEach over allDecks, split out into public and private, these will be used for different dropdowns
     // declare two arrays
@@ -102,7 +112,7 @@ export default class FlashcardContainer extends Component {
           value: deck.name
         };
         publicDecks.push(newOption);
-      } else {
+      } else if (deck.userID === this.props.currentUser) {
         let newOption = {
           key: deck.id,
           text: deck.name,
@@ -127,34 +137,48 @@ export default class FlashcardContainer extends Component {
       // return <DeckSelect />
       return (
         <React.Fragment>
-          <div>
-            <Header as="h1">Select Your Deck </Header>
-            <p>Which set of cards would you like to review?</p>
-          </div>
-          <br />
-          <Form.Select
-            options={options2}
-            placeholder="Shared Decks"
-            id="deckSelected"
-            name="deckSelected"
-            onChange={this.handleChange}
-          />
-          <Form.Select
-            options={privateDecks}
-            placeholder="My Decks"
-            name="privateDeckSelected"
-            onChange={this.handleChange}
-          />
-          <br />
-          <Button
-            basic
-            color="purple"
-            onClick={() => {
-              this.launchQuiz();
-            }}
-          >
-            Launch Quiz
-          </Button>
+          <Header as="h1">Select Your Deck </Header>
+          <Grid>
+            <Grid.Column width={8}>
+              <div>
+                <Header as="h3">
+                  Which set of cards would you like to review?
+                </Header>
+              </div>
+              <br />
+              <Form.Select
+                options={publicDecks}
+                placeholder="Shared Decks"
+                id="deckSelected"
+                name="deckSelected"
+                onChange={this.handleChange}
+                // label="Public Decks"
+              />
+              <Form.Select
+                options={privateDecks}
+                placeholder="My Decks"
+                name="privateDeckSelected"
+                onChange={this.handleChange}
+                // label="My Decks"
+              />
+              <br />
+              <Button
+                basic
+                color="purple"
+                onClick={() => {
+                  this.launchQuiz();
+                }}
+              >
+                Launch Quiz
+              </Button>
+            </Grid.Column>
+            <Grid.Column width={4}>
+              <div>
+                <Header as="h3">Deck details</Header>
+                <SelectedDetail deckSelected={this.state.deckSelected} />
+              </div>
+            </Grid.Column>
+          </Grid>
         </React.Fragment>
       );
     }
