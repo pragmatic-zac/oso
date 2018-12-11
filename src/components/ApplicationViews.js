@@ -9,6 +9,7 @@ import MainDeck from "./view/MainDeck";
 import DeckDetail from "./view/DeckDetail";
 import DecksManager from "../managers/DecksManager";
 import CardManager from "../managers/CardManager";
+import Flashcard from "./flashcards/Flashcard";
 
 class ApplicationViews extends Component {
   state = {
@@ -21,6 +22,8 @@ class ApplicationViews extends Component {
     deckCards: [],
     initialized: false
   };
+
+  // IDEA: run sort on ComponentWillMount - fetch all decks, then use that to fill userDecks and publicDecks
 
   componentDidMount() {
     const currentUser = parseInt(sessionStorage.getItem("userID"));
@@ -216,6 +219,13 @@ class ApplicationViews extends Component {
                   //   history={this.history}
                 />
               );
+            }}
+          />
+          <Route
+            exact
+            path="/flashcard"
+            render={props => {
+              return <Flashcard {...props} users={this.state.users} allCards={this.state.allCards} allDecks={this.state.allDecks}/>;
             }}
           />
         </React.Fragment>
