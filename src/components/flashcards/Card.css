@@ -2,15 +2,15 @@
 
 .flashcard-button-row {
   text-align: center;
-  padding-top: 12px;
+  padding-top: 18px;
 }
 
 .flashcard-button-row-bottom {
   text-align: center;
-  padding-top: 12px;
+  padding-top: 25px;
 }
 
-.card-container {
+.fcard-container {
   cursor: pointer;
   height: 400px;
   width: 400px;
@@ -21,7 +21,7 @@
   border-radius: 10px;
 }
 
-.card {
+.fcard {
   height: 400px;
   width: 400px;
   position: absolute;
@@ -31,12 +31,12 @@
   transition: all 0.4s ease-in-out;
 }
 
-.card:hover {
+.fcard:hover {
   transform: rotateY(180deg);
   transition: all 0.4s ease-in-out;
 }
 
-.card .front {
+.fcard .front {
   height: 400px;
   width: 400px;
   backface-visibility: hidden;
@@ -46,7 +46,7 @@
   background-color: whitesmoke;
 }
 
-.card .back {
+.fcard .back {
   height: 400px;
   width: 400px;
   backface-visibility: hidden;
