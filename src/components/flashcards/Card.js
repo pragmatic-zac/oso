@@ -18,11 +18,26 @@ export default class CardModule extends Component {
             {this.props.currentCard.back}
           </div>
         </div>
-        {/* <div className="flashcard-button-row">
-          <Button basic color="purple" onClick={() => this.props.getRandomCard()}>
+        <div className="flashcard-button-row">
+          <Button
+            basic
+            color="purple"
+            onClick={() => this.props.nextFlashcard(this.props.cards)}
+          >
             Next Card
           </Button>
-        </div> */}
+        </div>
+        <div className="flashcard-button-row-bottom">
+          <Button
+            basic
+            color="gray"
+            onClick={() => {
+              this.props.backToSelection();
+            }}
+          >
+            Select Another Quiz
+          </Button>
+        </div>
       </div>
     );
   }

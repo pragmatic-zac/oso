@@ -7,11 +7,6 @@ import CardManager from "../../managers/CardManager";
 
 // this is the container for the testing portion of the app
 
-// eventually I will let the user select (from a dropdown) which test they'd like to take
-// that will fill the state of "cards"
-
-// FOR NOW I am selecting all cards to fill state
-
 export default class FlashcardContainer extends Component {
   state = {
     quizSelected: false,
@@ -21,15 +16,6 @@ export default class FlashcardContainer extends Component {
     deckSelected: "",
     deckSelectedID: ""
   };
-
-  //   componentWillMount() {
-  //     const currentCards = this.state.cards;
-
-  //     this.setState({
-  //       currentCard: this.getRandomCard(currentCards),
-  //       cards: currentCards
-  //     });
-  //   }
 
   // function to get random card
   getRandomCard = currentCards => {
@@ -58,15 +44,7 @@ export default class FlashcardContainer extends Component {
 
   // handles dropdown submit
   handleDropdownSubmit = e => {
-    console.log(this.state.deckSelectedID);
-
-    // now I need to use user selection to set state of cards
-    // fill state with array of those cards
-    // options:
-    // iterate over allCards, creating new array, and set state with new array
-    // run fetch to get cards from that specific deck
-    // ...........
-    // I prefer option 2
+    // console.log(this.state.deckSelectedID);
 
     // do a promise.all here and consolidate launchQuiz function into here?
 
@@ -78,7 +56,7 @@ export default class FlashcardContainer extends Component {
     });
   };
 
-  // trying to find what I suspected was a timing issue - using this button to launch a quiz, AFTER user has made selection
+  // using this button to launch a quiz, AFTER user has made selection
 
   launchQuiz = () => {
     const currentCards = this.state.cards;
@@ -90,13 +68,14 @@ export default class FlashcardContainer extends Component {
     });
   };
 
+  // sends user back to quiz selection
+  backToSelection = () => {
+    this.setState({
+      quizSelected: false
+    });
+  };
+
   render() {
-    // need to fill this up with decks
-    // const options = [
-    //   { key: "m", text: "Male", value: "male" },
-    //   { key: "f", text: "Female", value: "female" },
-    //   { key: "n", text: "Prefer not to say", value: "prefer not to say" }
-    // ];
 
     // loop over decks and make a new array that is formatted to work with Semantic's dropdown
     const options2 = this.props.allDecks.map(deck => {
@@ -107,18 +86,11 @@ export default class FlashcardContainer extends Component {
       return (
         <React.Fragment>
           <Card
+            cards={this.state.cards}
             currentCard={this.state.currentCard}
-            getRandomCard={this.getRandomCard}
+            nextFlashcard={this.nextFlashcard}
+            backToSelection={this.backToSelection}
           />
-          <div className="flashcard-button-row">
-            <Button
-              basic
-              color="purple"
-              onClick={() => this.nextFlashcard(this.state.cards)}
-            >
-              Next Card
-            </Button>
-          </div>
         </React.Fragment>
       );
     } else {
