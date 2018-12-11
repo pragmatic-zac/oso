@@ -37,16 +37,23 @@ export default class FlashcardContainer extends Component {
     const { value } = data;
     const { key } = data.options.find(o => o.value === value);
     // put the selected deck's ID into state
-    this.setState({
-      deckSelectedID: key
+    // this.setState({
+    //   deckSelectedID: key
+    // });
+    //
+    // take whatever the user selected and use that to fetch cards from that deck, put them in state
+    CardManager.getCardsInDeck(key).then(cards => {
+      console.log(cards);
+      this.setState({
+        deckSelectedID: key,
+        cards: cards
+      });
     });
   };
 
-  // handles dropdown submit
+  // handles dropdown submit - not using, functionality moved to handleChange above
   handleDropdownSubmit = e => {
     // console.log(this.state.deckSelectedID);
-
-    // do a promise.all here and consolidate launchQuiz function into here?
 
     CardManager.getCardsInDeck(this.state.deckSelectedID).then(cards => {
       console.log(cards);
@@ -76,7 +83,6 @@ export default class FlashcardContainer extends Component {
   };
 
   render() {
-
     // loop over decks and make a new array that is formatted to work with Semantic's dropdown
     const options2 = this.props.allDecks.map(deck => {
       return { key: deck.id, text: deck.name, value: deck.name };
@@ -115,7 +121,7 @@ export default class FlashcardContainer extends Component {
             onChange={this.handleChange}
           />
           <br />
-          <Button
+          {/* <Button
             basic
             color="purple"
             onClick={() => {
@@ -123,7 +129,7 @@ export default class FlashcardContainer extends Component {
             }}
           >
             Confirm Selection
-          </Button>
+          </Button> */}
           <Button
             basic
             color="purple"
