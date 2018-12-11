@@ -10,7 +10,6 @@ import CardManager from "../../managers/CardManager";
 export default class FlashcardContainer extends Component {
   state = {
     quizSelected: false,
-    // cards: this.props.allCards,
     cards: "",
     currentCard: [],
     deckSelected: "",
@@ -88,6 +87,31 @@ export default class FlashcardContainer extends Component {
       return { key: deck.id, text: deck.name, value: deck.name };
     });
 
+    // need two decks - run a forEach over allDecks, split out into public and private, these will be used for different dropdowns
+    // declare two arrays
+    let publicDecks = [];
+    let privateDecks = [];
+
+    this.props.allDecks.forEach(deck => {
+      // check for decks that do NOT belong to current user and look for shared flag
+      if (deck.userID !== this.props.currentUser && deck.shared === true) {
+        // format it correctly, then push to array
+        let newOption = {
+          key: deck.id,
+          text: deck.name,
+          value: deck.name
+        };
+        publicDecks.push(newOption);
+      } else {
+        let newOption = {
+          key: deck.id,
+          text: deck.name,
+          value: deck.name
+        };
+        privateDecks.push(newOption);
+      }
+    });
+
     if (this.state.quizSelected) {
       return (
         <React.Fragment>
@@ -105,31 +129,23 @@ export default class FlashcardContainer extends Component {
         <React.Fragment>
           <div>
             <Header as="h1">Select Your Deck </Header>
-            <p>
-              Eventually there will be two dropdowns here - one for public, one
-              for private
-            </p>
-            <p>On selection/submit, set state of quizSelected to true</p>
+            <p>Which set of cards would you like to review?</p>
           </div>
           <br />
           <Form.Select
-            // label="Options"
             options={options2}
-            placeholder="Decks"
+            placeholder="Shared Decks"
             id="deckSelected"
             name="deckSelected"
             onChange={this.handleChange}
           />
+          <Form.Select
+            options={privateDecks}
+            placeholder="My Decks"
+            name="privateDeckSelected"
+            onChange={this.handleChange}
+          />
           <br />
-          {/* <Button
-            basic
-            color="purple"
-            onClick={() => {
-              this.handleDropdownSubmit();
-            }}
-          >
-            Confirm Selection
-          </Button> */}
           <Button
             basic
             color="purple"

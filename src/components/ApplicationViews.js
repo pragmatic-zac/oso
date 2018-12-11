@@ -257,8 +257,10 @@ class ApplicationViews extends Component {
                 <Flashcard
                   {...props}
                   users={this.state.users}
+                  currentUser={this.state.currentUser}
                   allCards={this.state.allCards}
                   allDecks={this.state.allDecks}
+                  userDecks={this.state.userDecks}
                 />
               );
             }}
