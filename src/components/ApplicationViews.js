@@ -25,6 +25,12 @@ class ApplicationViews extends Component {
 
   // IDEA: run sort on ComponentWillMount - fetch all decks, then use that to fill userDecks and publicDecks
 
+  //   componentWillMount() {
+  //     const currentUser = parseInt(sessionStorage.getItem("userID"));
+
+  //     DecksManager.getUserDecks(currentUser).then((data) => console.log(data))
+  //   }
+
   componentDidMount() {
     const currentUser = parseInt(sessionStorage.getItem("userID"));
     this.setState({
@@ -139,9 +145,30 @@ class ApplicationViews extends Component {
   // leaving it for now (just to get update functional) but this needs to be addressed
 
   updateDeck = (payload, url) => {
-    DecksManager.patchAndListDecks(payload, url).then(allDecks => {
-      this.setState({ allDecks: allDecks });
-    });
+    console.log(payload);
+
+    let patchAndListAllDecks = DecksManager.patchAndListDecks(payload, url);
+
+    let relistUserDecks = DecksManager.getUserDecks(this.state.currentUser);
+
+    // Promise.all([patchAndListAllDecks, relistUserDecks]).then(data => {
+    //   console.log(data);
+    //   this.setState({
+    //     allDecks: data[0],
+    //     userDecks: data[1]
+    //   });
+    // });
+
+    // does promise all wait for 1 to work before 2? no! so.....
+    // trying it with a callback!
+
+    patchAndListAllDecks.then(data =>
+      this.setState({ allDecks: data }, () => {
+        relistUserDecks.then(userDecks => {
+          this.setState({ userDecks: userDecks });
+        });
+      })
+    );
   };
 
   postNewDeck = payload => {
@@ -195,6 +222,7 @@ class ApplicationViews extends Component {
                   publicDecks={this.state.publicDecks}
                   userDecks={this.state.userDecks}
                   postNewDeck={this.postNewDeck}
+                  allDecks={this.state.allDecks}
                 />
               );
             }}
@@ -225,7 +253,14 @@ class ApplicationViews extends Component {
             exact
             path="/flashcard"
             render={props => {
-              return <Flashcard {...props} users={this.state.users} allCards={this.state.allCards} allDecks={this.state.allDecks}/>;
+              return (
+                <Flashcard
+                  {...props}
+                  users={this.state.users}
+                  allCards={this.state.allCards}
+                  allDecks={this.state.allDecks}
+                />
+              );
             }}
           />
         </React.Fragment>

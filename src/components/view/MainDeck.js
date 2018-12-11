@@ -120,7 +120,7 @@ export default class MainDeck extends Component {
             </Modal>
           </div>
 
-          {this.props.userDecks.map(deck => {
+          {/* {this.props.userDecks.map(deck => {
             return (
               <Card color="green" href={`/maindeck/${deck.id}`} key={deck.id}>
                 <Card.Content>
@@ -129,6 +129,19 @@ export default class MainDeck extends Component {
                 </Card.Content>
               </Card>
             );
+          })} */}
+
+          {this.props.allDecks.map(deck => {
+            if (deck.userID === this.props.currentUser) {return (
+              <Card color="green" href={`/maindeck/${deck.id}`} key={deck.id}>
+                <Card.Content>
+                  <Card.Header>{deck.name}</Card.Header>
+                  <Card.Description>{deck.description}</Card.Description>
+                </Card.Content>
+              </Card>
+            )} else {
+              return null
+            };
           })}
         </div>
       </React.Fragment>
