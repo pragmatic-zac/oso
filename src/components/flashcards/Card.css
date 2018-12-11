@@ -1,0 +1,67 @@
+/* this is where card flip is controlled */
+
+.flashcard-button-row {
+  text-align: center;
+  padding-top: 12px;
+}
+
+.flashcard-button-row-bottom {
+  text-align: center;
+  padding-top: 12px;
+}
+
+.card-container {
+  cursor: pointer;
+  height: 400px;
+  width: 400px;
+  perspective: 800px;
+  position: relative;
+  margin: auto;
+  transition: ease-in;
+  border-radius: 10px;
+}
+
+.card {
+  height: 400px;
+  width: 400px;
+  position: absolute;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  transform-style: preserve-3d;
+  transition: all 0.4s ease-in-out;
+}
+
+.card:hover {
+  transform: rotateY(180deg);
+  transition: all 0.4s ease-in-out;
+}
+
+.card .front {
+  height: 400px;
+  width: 400px;
+  backface-visibility: hidden;
+  position: absolute;
+  overflow: hidden;
+  text-align: center;
+  background-color: whitesmoke;
+}
+
+.card .back {
+  height: 400px;
+  width: 400px;
+  backface-visibility: hidden;
+  text-align: center;
+  transform: rotateY(180deg);
+}
+
+.spanish {
+  font-size: 2.5em;
+  text-align: center;
+  padding-top: 40%;
+}
+
+.engrish {
+  font-size: 2.5em;
+  text-align: center;
+  padding-top: 40%;
+}
