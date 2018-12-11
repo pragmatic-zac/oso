@@ -89,7 +89,8 @@ export default class FlashcardContainer extends Component {
   // sends user back to quiz selection
   backToSelection = () => {
     this.setState({
-      quizSelected: false
+      quizSelected: false,
+      deckSelected: false
     });
   };
 
