@@ -3,6 +3,7 @@ import "./Flashcard.css";
 import Card from "./Card";
 // import DeckSelect from "./DeckSelect";
 import { Form, Button, Header } from "semantic-ui-react";
+import CardManager from "../../managers/CardManager";
 
 // this is the container for the testing portion of the app
 
@@ -14,51 +15,84 @@ import { Form, Button, Header } from "semantic-ui-react";
 export default class FlashcardContainer extends Component {
   state = {
     quizSelected: false,
-    cards: this.props.allCards,
+    // cards: this.props.allCards,
+    cards: "",
     currentCard: [],
-    deckSelected: ""
+    deckSelected: "",
+    deckSelectedID: ""
   };
 
-  componentWillMount() {
-    const currentCards = this.state.cards;
+  //   componentWillMount() {
+  //     const currentCards = this.state.cards;
 
-    this.setState({
-      currentCard: this.getRandomCard(currentCards),
-      cards: currentCards
-    });
-  }
+  //     this.setState({
+  //       currentCard: this.getRandomCard(currentCards),
+  //       cards: currentCards
+  //     });
+  //   }
 
+  // function to get random card
   getRandomCard = currentCards => {
     let card = currentCards[Math.floor(Math.random() * currentCards.length)];
     return card;
   };
 
-  handleDropdownChange = (e, { name, value }) =>
-    this.setState({ [name]: value });
+  // handles dropdown change/selection
+  // adapted from: https://stackoverflow.com/questions/51227359/how-to-retrieve-the-key-into-a-semantic-ui-react-dropdown
+  handleChange = (event, data) => {
+    const { value } = data;
+    const { key } = data.options.find(o => o.value === value);
+    // put the selected deck's ID into state
+    this.setState({
+      deckSelectedID: key
+    });
+  };
 
-  //   onChange = e => {
-  //     // console.log(e)
-  //     this.setState({ [e.target.name]: e.target.value });
-  //   };
-
+  // handles dropdown submit
   handleDropdownSubmit = e => {
-    console.log(this.state.deckSelected);
+    console.log(this.state.deckSelectedID);
+
+    // now I need to use user selection to set state of cards
+    // fill state with array of those cards
+    // options:
+    // iterate over allCards, creating new array, and set state with new array
+    // run fetch to get cards from that specific deck
+    // ...........
+    // I prefer option 2
+
+    CardManager.getCardsInDeck(this.state.deckSelectedID).then(cards => {
+      console.log(cards);
+      this.setState({
+        cards: cards
+      });
+    });
+  };
+
+  // trying to find what I suspected was a timing issue - using this button to launch a quiz, AFTER user has made selection
+
+  launchQuiz = () => {
+    const currentCards = this.state.cards;
+
+    this.setState({
+      currentCard: this.getRandomCard(currentCards),
+      cards: currentCards,
+      quizSelected: true
+    });
+
   };
 
   render() {
     // need to fill this up with decks
-    const options = [
-      { key: "m", text: "Male", value: "male" },
-      { key: "f", text: "Female", value: "female" },
-      { key: "n", text: "Prefer not to say", value: "prefer not to say" }
-    ];
+    // const options = [
+    //   { key: "m", text: "Male", value: "male" },
+    //   { key: "f", text: "Female", value: "female" },
+    //   { key: "n", text: "Prefer not to say", value: "prefer not to say" }
+    // ];
 
     // loop over decks and make a new array that is formatted to work with Semantic's dropdown
     const options2 = this.props.allDecks.map(deck => {
-        return {key: deck.id, text: deck.name, value: deck.name}
-    })
-
-    console.log(options2)
+      return { key: deck.id, text: deck.name, value: deck.name };
+    });
 
     if (this.state.quizSelected) {
       return <Card currentCard={this.state.currentCard} />;
@@ -67,18 +101,23 @@ export default class FlashcardContainer extends Component {
       return (
         <React.Fragment>
           <div>
-              <Header as="h1">Select Your Deck </Header>
+            <Header as="h1">Select Your Deck </Header>
+            <p>
+              Eventually there will be two dropdowns here - one for public, one
+              for private
+            </p>
+            <p>On selection/submit, set state of quizSelected to true</p>
           </div>
-          <br></br>
+          <br />
           <Form.Select
             // label="Options"
             options={options2}
             placeholder="Decks"
             id="deckSelected"
             name="deckSelected"
-            onChange={this.handleDropdownChange}
+            onChange={this.handleChange}
           />
-          <br></br>
+          <br />
           <Button
             basic
             color="purple"
@@ -86,7 +125,16 @@ export default class FlashcardContainer extends Component {
               this.handleDropdownSubmit();
             }}
           >
-            Launch Flashcards
+            Confirm Selection
+          </Button>
+          <Button
+            basic
+            color="purple"
+            onClick={() => {
+              this.launchQuiz();
+            }}
+          >
+            Launch Quiz
           </Button>
         </React.Fragment>
       );

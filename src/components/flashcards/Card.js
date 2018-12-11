@@ -5,6 +5,7 @@ import "./Card.css";
 
 export default class CardModule extends Component {
   render() {
+    console.log(this.props.currentCard);
     return (
       <div className="card-container">
         <div className="card">
