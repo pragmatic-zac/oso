@@ -23,6 +23,8 @@ class ApplicationViews extends Component {
     initialized: false
   };
 
+  // IDEA: run sort on ComponentWillMount - fetch all decks, then use that to fill userDecks and publicDecks
+
   componentDidMount() {
     const currentUser = parseInt(sessionStorage.getItem("userID"));
     this.setState({
@@ -223,7 +225,7 @@ class ApplicationViews extends Component {
             exact
             path="/flashcard"
             render={props => {
-              return <Flashcard {...props} users={this.state.users} allCards={this.state.allCards}/>;
+              return <Flashcard {...props} users={this.state.users} allCards={this.state.allCards} allDecks={this.state.allDecks}/>;
             }}
           />
         </React.Fragment>
