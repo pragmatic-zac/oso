@@ -223,7 +223,7 @@ class ApplicationViews extends Component {
             exact
             path="/flashcard"
             render={props => {
-              return <Flashcard {...props} users={this.state.users} />;
+              return <Flashcard {...props} users={this.state.users} allCards={this.state.allCards}/>;
             }}
           />
         </React.Fragment>
