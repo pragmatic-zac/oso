@@ -222,6 +222,7 @@ class ApplicationViews extends Component {
                   publicDecks={this.state.publicDecks}
                   userDecks={this.state.userDecks}
                   postNewDeck={this.postNewDeck}
+                  allDecks={this.state.allDecks}
                 />
               );
             }}
