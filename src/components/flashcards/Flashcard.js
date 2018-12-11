@@ -15,6 +15,7 @@ export default class FlashcardContainer extends Component {
     cards: "",
     currentCard: [],
     deckSelected: "",
+    isDeckSelected: false,
     deckSelectedID: ""
   };
 
@@ -55,7 +56,8 @@ export default class FlashcardContainer extends Component {
     DecksManager.getSpecificDeck(key).then(deck => {
       console.log(deck);
       this.setState({
-        deckSelected: deck
+        deckSelected: deck,
+        isDeckSelected: true
       });
     });
   };
@@ -175,7 +177,7 @@ export default class FlashcardContainer extends Component {
             <Grid.Column width={4}>
               <div>
                 <Header as="h3">Deck details</Header>
-                <SelectedDetail deckSelected={this.state.deckSelected} />
+                <SelectedDetail deckSelected={this.state.deckSelected} cards={this.state.cards} isDeckSelected={this.state.isDeckSelected}/>
               </div>
             </Grid.Column>
           </Grid>
