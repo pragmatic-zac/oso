@@ -5,6 +5,14 @@ import { Button } from "semantic-ui-react";
 // this is where the test itself will live
 
 export default class CardModule extends Component {
+  // function to produce speech synth utterance, fired on button click "listen"
+  speakToMe = word => {
+    const synth = window.speechSynthesis;
+    let sayThis = new SpeechSynthesisUtterance(word);
+    sayThis.voice = synth.getVoices()[14];
+    synth.speak(sayThis);
+  };
+
   render() {
     console.log(this.props.currentCard);
     return (
@@ -38,7 +46,11 @@ export default class CardModule extends Component {
           >
             Toss
           </Button>
-          <Button basic color="green" onClick={() => console.log("listen")}>
+          <Button
+            basic
+            color="green"
+            onClick={() => this.speakToMe(this.props.currentCard.front)}
+          >
             Listen
           </Button>
           <Button basic color="red" onClick={() => console.log("speak")}>
@@ -49,7 +61,9 @@ export default class CardModule extends Component {
           <Button
             basic
             color="grey"
-            onClick={() => console.log("end session, save a note. use this to pop up modal!")}
+            onClick={() =>
+              console.log("end session, save a note. use this to pop up modal!")
+            }
           >
             End Session
           </Button>
