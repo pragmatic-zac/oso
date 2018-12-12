@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header } from "semantic-ui-react";
+import { Header, Button } from "semantic-ui-react";
 
 export default class SelectedDetail extends Component {
   render() {
@@ -14,6 +14,15 @@ export default class SelectedDetail extends Component {
           <Header as="h4">{this.props.deckSelected.name}</Header>
           <p>{this.props.deckSelected.description}</p>
           <p>Cards in deck: {deckLength}</p>
+          <Button
+            basic
+            color="purple"
+            onClick={() => {
+              this.props.launchQuiz();
+            }}
+          >
+            Launch Quiz
+          </Button>
         </React.Fragment>
       );
     } else {

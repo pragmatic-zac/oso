@@ -132,16 +132,18 @@ export default class MainDeck extends Component {
           })} */}
 
           {this.props.allDecks.map(deck => {
-            if (deck.userID === this.props.currentUser) {return (
-              <Card color="green" href={`/maindeck/${deck.id}`} key={deck.id}>
-                <Card.Content>
-                  <Card.Header>{deck.name}</Card.Header>
-                  <Card.Description>{deck.description}</Card.Description>
-                </Card.Content>
-              </Card>
-            )} else {
-              return null
-            };
+            if (deck.userID === this.props.currentUser) {
+              return (
+                <Card color="green" href={`/maindeck/${deck.id}`} key={deck.id}>
+                  <Card.Content>
+                    <Card.Header>{deck.name}</Card.Header>
+                    <Card.Description>{deck.description}</Card.Description>
+                  </Card.Content>
+                </Card>
+              );
+            } else {
+              return null;
+            }
           })}
         </div>
       </React.Fragment>

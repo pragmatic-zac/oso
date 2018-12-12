@@ -96,7 +96,9 @@ export default class FlashcardContainer extends Component {
   backToSelection = () => {
     this.setState({
       quizSelected: false,
-      deckSelected: false
+      deckSelected: false,
+      isDeckSelected: false,
+      cards: ""
     });
   };
 
@@ -171,15 +173,6 @@ export default class FlashcardContainer extends Component {
                 // label="My Decks"
               />
               <br />
-              <Button
-                basic
-                color="purple"
-                onClick={() => {
-                  this.launchQuiz();
-                }}
-              >
-                Launch Quiz
-              </Button>
             </Grid.Column>
             <Grid.Column width={4}>
               <div>
@@ -188,6 +181,7 @@ export default class FlashcardContainer extends Component {
                   deckSelected={this.state.deckSelected}
                   cards={this.state.cards}
                   isDeckSelected={this.state.isDeckSelected}
+                  launchQuiz={this.launchQuiz}
                 />
               </div>
             </Grid.Column>
