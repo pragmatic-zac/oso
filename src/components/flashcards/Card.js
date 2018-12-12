@@ -5,6 +5,34 @@ import { Button } from "semantic-ui-react";
 // this is where the test itself will live
 
 export default class CardModule extends Component {
+  // function to produce speech synth utterance, fired on button click "listen"
+  speakToMe = word => {
+    const synth = window.speechSynthesis;
+    let sayThis = new SpeechSynthesisUtterance(word);
+    sayThis.voice = synth.getVoices()[14];
+    synth.speak(sayThis);
+    // wrap this in new Promise?
+  };
+
+  testPronunciation = word => {
+    /* eslint no-undef:"off"*/
+    const recognition = new webkitSpeechRecognition();
+    const recogWord = new webkitSpeechGrammarList();
+    recognition.lang = "ES";
+    recogWord.addFromString(word);
+    recognition.grammars = recogWord;
+    recognition.onresult = function(event) {
+      const userSaid = event.results[0][0].transcript;
+      console.log(userSaid);
+      if (userSaid === word) {
+        alert("Good job!");
+      } else {
+        alert("You're close, try again!");
+      }
+    };
+    recognition.start();
+  };
+
   render() {
     console.log(this.props.currentCard);
     return (
@@ -38,10 +66,18 @@ export default class CardModule extends Component {
           >
             Toss
           </Button>
-          <Button basic color="green" onClick={() => console.log("listen")}>
+          <Button
+            basic
+            color="green"
+            onClick={() => this.speakToMe(this.props.currentCard.front)}
+          >
             Listen
           </Button>
-          <Button basic color="red" onClick={() => console.log("speak")}>
+          <Button
+            basic
+            color="red"
+            onClick={() => this.testPronunciation(this.props.currentCard.front)}
+          >
             Speak
           </Button>
         </div>
@@ -49,7 +85,9 @@ export default class CardModule extends Component {
           <Button
             basic
             color="grey"
-            onClick={() => console.log("end session, save a note. use this to pop up modal!")}
+            onClick={() =>
+              console.log("end session, save a note. use this to pop up modal!")
+            }
           >
             End Session
           </Button>

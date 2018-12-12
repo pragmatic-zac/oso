@@ -16,8 +16,14 @@ export default class FlashcardContainer extends Component {
     currentCard: [],
     deckSelected: "",
     isDeckSelected: false,
-    deckSelectedID: ""
+    deckSelectedID: "",
+    voice: "14"
   };
+
+  // ^ set voice here, so I only get it once instead of every time a flashcard loads
+  // 14 is Jorge, Spain Spanish
+
+  // I can rig up a menu with different Spanish speakers and use that to change voice later on if I want, but 14 is default
 
   // function to get random card
   getRandomCard = currentCards => {
@@ -178,7 +184,11 @@ export default class FlashcardContainer extends Component {
             <Grid.Column width={4}>
               <div>
                 <Header as="h3">Deck details</Header>
-                <SelectedDetail deckSelected={this.state.deckSelected} cards={this.state.cards} isDeckSelected={this.state.isDeckSelected}/>
+                <SelectedDetail
+                  deckSelected={this.state.deckSelected}
+                  cards={this.state.cards}
+                  isDeckSelected={this.state.isDeckSelected}
+                />
               </div>
             </Grid.Column>
           </Grid>
