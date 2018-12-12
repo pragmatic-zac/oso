@@ -11,6 +11,26 @@ export default class CardModule extends Component {
     let sayThis = new SpeechSynthesisUtterance(word);
     sayThis.voice = synth.getVoices()[14];
     synth.speak(sayThis);
+    // wrap this in new Promise?
+  };
+
+  testPronunciation = word => {
+    /* eslint no-undef:"off"*/
+    const recognition = new webkitSpeechRecognition();
+    const recogWord = new webkitSpeechGrammarList();
+    recognition.lang = "ES";
+    recogWord.addFromString(word);
+    recognition.grammars = recogWord;
+    recognition.onresult = function(event) {
+      const userSaid = event.results[0][0].transcript;
+      console.log(userSaid);
+      if (userSaid === word) {
+        alert("Good job!");
+      } else {
+        alert("You're close, try again!");
+      }
+    };
+    recognition.start();
   };
 
   render() {
@@ -53,7 +73,11 @@ export default class CardModule extends Component {
           >
             Listen
           </Button>
-          <Button basic color="red" onClick={() => console.log("speak")}>
+          <Button
+            basic
+            color="red"
+            onClick={() => this.testPronunciation(this.props.currentCard.front)}
+          >
             Speak
           </Button>
         </div>
