@@ -145,6 +145,7 @@ export default class FlashcardContainer extends Component {
       return (
         <React.Fragment>
           <Header as="h1">Select Your Deck </Header>
+          <br />
           <Grid>
             <Grid.Column width={8}>
               <div>
@@ -161,6 +162,7 @@ export default class FlashcardContainer extends Component {
                 onChange={this.handleChange}
                 // label="Public Decks"
               />
+              <br />
               <Form.Select
                 options={privateDecks}
                 placeholder="My Decks"
