@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-// import bear from "../../images/oso_logo.svg";
+import bear from "../../images/oso 2.png";
 // import logo from "../../images/logo.svg"
 import "./Home.css";
+import { Container } from "semantic-ui-react";
 
 export default class Home extends Component {
   render() {
@@ -18,17 +19,20 @@ export default class Home extends Component {
 
     return (
       <div className="homeContainer">
-        <div>
-          <h1>Welcome to Oso!</h1>
-          {/* <img src={logo} alt="bear_boi" /> */}
-          <img
+        <Container textAlign="center">
+          <div>
+            <h1>Welcome to Oso!</h1>
+            {/* <img src={logo} alt="bear_boi" /> */}
+            {/* <img
             src={
               "https://thenypost.files.wordpress.com/2014/09/bear1.jpg?quality=90&strip=all&w=618&h=410&crop=1"
             }
             alt="waving-bear"
-          />
-          <p>{greeting}</p>
-        </div>
+          /> */}
+            <img src={bear} alt="oso-boi" />
+            <p>{greeting}</p>
+          </div>
+        </Container>
       </div>
     );
   }

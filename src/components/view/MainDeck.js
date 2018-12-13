@@ -57,7 +57,7 @@ export default class MainDeck extends Component {
       <React.Fragment>
         <Header as="h1">All Decks</Header>
         <Grid>
-        <Grid.Column width={8}>
+          <Grid.Column width={8}>
             <div>
               <h3>My Decks</h3>
 
@@ -83,31 +83,32 @@ export default class MainDeck extends Component {
                       <Form onSubmit={this.newDeckSubmit}>
                         <Header>Deck Title</Header>
                         <Input
+                          fluid
                           type="text"
                           name="newName"
                           onChange={this.onChange}
                         />
                         <Header>Description</Header>
                         <Input
+                          fluid
                           type="text"
                           name="newDescription"
                           onChange={this.onChange}
                         />
-                        <Button basic color="green" onClick={() => {}}>
+                        {/* <Button basic color="green" onClick={() => {}}>
                           Save Deck
-                        </Button>
+                        </Button> */}
                       </Form>
                     </Modal.Description>
                   </Modal.Content>
                   <Modal.Actions>
                     <Button onClick={this.close}>Back</Button>
-                    {/* unfortunately this does not currently work for submit - known bug */}
                     <Button
-                      onClick={() => this.newDeckSubmit}
+                      onClick={this.newDeckSubmit}
                       positive
                       icon="add circle"
                       labelPosition="right"
-                      content="Save Card*"
+                      content="Save Card"
                     />
                   </Modal.Actions>
                 </Modal>
@@ -167,7 +168,6 @@ export default class MainDeck extends Component {
             </div>
           </Grid.Column>
           <br />
-
         </Grid>
       </React.Fragment>
     );
