@@ -58,7 +58,7 @@ export default class MenuExampleHeader extends Component {
     }
 
     return (
-      <Menu pointing secondary>
+      <Menu pointing secondary color="red">
         <Menu.Item
           as={Link}
           to="/home"
