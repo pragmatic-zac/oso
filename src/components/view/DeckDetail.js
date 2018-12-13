@@ -86,6 +86,7 @@ export default class DeckDetail extends Component {
     let titleUpdateForm = "";
     let detailsUpdateForm = "";
     let createNewBtn = "";
+    // let createdBy = ""
 
     if (deck.userID === this.props.currentUser) {
       deleteDeckBtn = (
@@ -137,21 +138,20 @@ export default class DeckDetail extends Component {
                 <Input type="text" name="newFront" onChange={this.onChange} />
                 <Header>Back</Header>
                 <Input type="text" name="newBack" onChange={this.onChange} />
-                <Button basic color="green" onClick={() => {}}>
+                {/* <Button basic color="green" onClick={() => {}}>
                   Save Card
-                </Button>
+                </Button> */}
               </Form>
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={this.close}>Back</Button>
-            {/* unfortunately this does not currently work for submit - known bug */}
             <Button
-              onClick={() => this.newCardSubmit}
+              onClick={this.newCardSubmit}
               positive
               icon="add circle"
               labelPosition="right"
-              content="Save Card*"
+              content="Save Card"
             />
           </Modal.Actions>
         </Modal>

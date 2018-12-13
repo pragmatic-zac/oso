@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Flashcard.css";
 import Card from "./Card";
 // import DeckSelect from "./DeckSelect";
-import { Form, Button, Header, Grid } from "semantic-ui-react";
+import { Form, Header, Grid } from "semantic-ui-react";
 import CardManager from "../../managers/CardManager";
 import DecksManager from "../../managers/DecksManager";
 import SelectedDetail from "./SelectedDetail";
@@ -96,15 +96,14 @@ export default class FlashcardContainer extends Component {
   backToSelection = () => {
     this.setState({
       quizSelected: false,
-      deckSelected: false
+      deckSelected: false,
+      isDeckSelected: false,
+      cards: ""
     });
   };
 
   render() {
     // loop over decks and make a new array that is formatted to work with Semantic's dropdown
-    // const options2 = this.props.allDecks.map(deck => {
-    //   return { key: deck.id, text: deck.name, value: deck.name };
-    // });
 
     // need two decks - run a forEach over allDecks, split out into public and private, these will be used for different dropdowns
     // declare two arrays
@@ -143,10 +142,10 @@ export default class FlashcardContainer extends Component {
         </React.Fragment>
       );
     } else {
-      // return <DeckSelect />
       return (
         <React.Fragment>
           <Header as="h1">Select Your Deck </Header>
+          <br />
           <Grid>
             <Grid.Column width={8}>
               <div>
@@ -163,6 +162,7 @@ export default class FlashcardContainer extends Component {
                 onChange={this.handleChange}
                 // label="Public Decks"
               />
+              <br />
               <Form.Select
                 options={privateDecks}
                 placeholder="My Decks"
@@ -171,15 +171,6 @@ export default class FlashcardContainer extends Component {
                 // label="My Decks"
               />
               <br />
-              <Button
-                basic
-                color="purple"
-                onClick={() => {
-                  this.launchQuiz();
-                }}
-              >
-                Launch Quiz
-              </Button>
             </Grid.Column>
             <Grid.Column width={4}>
               <div>
@@ -188,6 +179,7 @@ export default class FlashcardContainer extends Component {
                   deckSelected={this.state.deckSelected}
                   cards={this.state.cards}
                   isDeckSelected={this.state.isDeckSelected}
+                  launchQuiz={this.launchQuiz}
                 />
               </div>
             </Grid.Column>

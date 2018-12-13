@@ -14,7 +14,7 @@ export default class CardModule extends Component {
     // wrap this in new Promise?
   };
 
-  testPronunciation = word => {
+  listenToMe = word => {
     /* eslint no-undef:"off"*/
     const recognition = new webkitSpeechRecognition();
     const recogWord = new webkitSpeechGrammarList();
@@ -76,7 +76,7 @@ export default class CardModule extends Component {
           <Button
             basic
             color="red"
-            onClick={() => this.testPronunciation(this.props.currentCard.front)}
+            onClick={() => this.listenToMe(this.props.currentCard.front)}
           >
             Speak
           </Button>

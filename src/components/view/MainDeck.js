@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Header, Card, Button, Modal, Form, Input } from "semantic-ui-react";
+import {
+  Header,
+  Card,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Grid
+} from "semantic-ui-react";
 // import CardManager from "../../managers/CardManager"
 
 export default class MainDeck extends Component {
@@ -48,79 +56,65 @@ export default class MainDeck extends Component {
     return (
       <React.Fragment>
         <Header as="h1">All Decks</Header>
-        <div>
-          <h3>Public Decks</h3>
+        <Grid>
+          <Grid.Column width={8}>
+            <div>
+              <h3>My Decks</h3>
 
-          {/* on refactor - use a filter here instead of a map. filter by current user */}
-          {this.props.publicDecks.map(deck => {
-            return (
-              <Card color="blue" href={`/maindeck/${deck.id}`} key={deck.id}>
-                <Card.Content>
-                  <Card.Header>{deck.name}</Card.Header>
-                  <Card.Description>{deck.description}</Card.Description>
-                </Card.Content>
-                {/* was trying buttons here, but as whole card is a link, they do not work. leaving for now and will decide later */}
-              </Card>
-            );
-          })}
-        </div>
-        <br />
-        <div>
-          <h3>My Decks</h3>
-
-          <div>
-            <Modal
-              dimmer={this.state.dimmer}
-              open={this.state.open}
-              onClose={this.close}
-              trigger={
-                <Button
-                  basic
-                  size="tiny"
-                  color="green"
-                  onClick={this.show("blurring")}
-                >
-                  Add New Deck
-                </Button>
-              }
-            >
-              <Modal.Header>Add New Deck</Modal.Header>
-              <Modal.Content>
-                <Modal.Description>
-                  <Form onSubmit={this.newDeckSubmit}>
-                    <Header>Deck Title</Header>
-                    <Input
-                      type="text"
-                      name="newName"
-                      onChange={this.onChange}
-                    />
-                    <Header>Description</Header>
-                    <Input
-                      type="text"
-                      name="newDescription"
-                      onChange={this.onChange}
-                    />
-                    <Button basic color="green" onClick={() => {}}>
-                      Save Deck
+              <div>
+                <Modal
+                  dimmer={this.state.dimmer}
+                  open={this.state.open}
+                  onClose={this.close}
+                  trigger={
+                    <Button
+                      basic
+                      size="tiny"
+                      color="green"
+                      onClick={this.show("blurring")}
+                    >
+                      Add New Deck
                     </Button>
-                  </Form>
-                </Modal.Description>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button onClick={this.close}>Back</Button>
-                {/* unfortunately this does not currently work for submit - known bug */}
-                <Button
-                  onClick={() => this.newDeckSubmit}
-                  positive
-                  icon="add circle"
-                  labelPosition="right"
-                  content="Save Card*"
-                />
-              </Modal.Actions>
-            </Modal>
-          </div>
+                  }
+                >
+                  <Modal.Header>Add New Deck</Modal.Header>
+                  <Modal.Content>
+                    <Modal.Description>
+                      <Form onSubmit={this.newDeckSubmit}>
+                        <Header>Deck Title</Header>
+                        <Input
+                          fluid
+                          type="text"
+                          name="newName"
+                          onChange={this.onChange}
+                        />
+                        <Header>Description</Header>
+                        <Input
+                          fluid
+                          type="text"
+                          name="newDescription"
+                          onChange={this.onChange}
+                        />
+                        {/* <Button basic color="green" onClick={() => {}}>
+                          Save Deck
+                        </Button> */}
+                      </Form>
+                    </Modal.Description>
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button onClick={this.close}>Back</Button>
+                    <Button
+                      onClick={this.newDeckSubmit}
+                      positive
+                      icon="add circle"
+                      labelPosition="right"
+                      content="Save Card"
+                    />
+                  </Modal.Actions>
+                </Modal>
+              </div>
 
-          {/* {this.props.userDecks.map(deck => {
+              {/* {this.props.userDecks.map(deck => {
             return (
               <Card color="green" href={`/maindeck/${deck.id}`} key={deck.id}>
                 <Card.Content>
@@ -131,19 +125,50 @@ export default class MainDeck extends Component {
             );
           })} */}
 
-          {this.props.allDecks.map(deck => {
-            if (deck.userID === this.props.currentUser) {return (
-              <Card color="green" href={`/maindeck/${deck.id}`} key={deck.id}>
-                <Card.Content>
-                  <Card.Header>{deck.name}</Card.Header>
-                  <Card.Description>{deck.description}</Card.Description>
-                </Card.Content>
-              </Card>
-            )} else {
-              return null
-            };
-          })}
-        </div>
+              {this.props.allDecks.map(deck => {
+                if (deck.userID === this.props.currentUser) {
+                  return (
+                    <Card
+                      color="green"
+                      href={`/maindeck/${deck.id}`}
+                      key={deck.id}
+                    >
+                      <Card.Content>
+                        <Card.Header>{deck.name}</Card.Header>
+                        <Card.Description>{deck.description}</Card.Description>
+                      </Card.Content>
+                    </Card>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </div>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <div>
+              <h3>Public Decks</h3>
+
+              {/* on refactor - use a filter here instead of a map. filter by current user */}
+              {this.props.publicDecks.map(deck => {
+                return (
+                  <Card
+                    color="blue"
+                    href={`/maindeck/${deck.id}`}
+                    key={deck.id}
+                  >
+                    <Card.Content>
+                      <Card.Header>{deck.name}</Card.Header>
+                      <Card.Description>{deck.description}</Card.Description>
+                    </Card.Content>
+                    {/* was trying buttons here, but as whole card is a link, they do not work. leaving for now and will decide later */}
+                  </Card>
+                );
+              })}
+            </div>
+          </Grid.Column>
+          <br />
+        </Grid>
       </React.Fragment>
     );
   }
