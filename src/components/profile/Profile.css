@@ -1,0 +1,18 @@
+.image {
+    height: 25px;
+    width: 25px;
+}
+
+.image:hover {
+    cursor: pointer;
+}
+
+.currentVoice {
+    padding: 10px;
+}
+
+/* commenting this out for now because it looks better without */
+/* .voice-option {
+    height: 90px;
+    width: 60px;
+} */

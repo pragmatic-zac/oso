@@ -10,6 +10,7 @@ import DeckDetail from "./view/DeckDetail";
 import DecksManager from "../managers/DecksManager";
 import CardManager from "../managers/CardManager";
 import Flashcard from "./flashcards/Flashcard";
+import Profile from "./profile/Profile";
 
 class ApplicationViews extends Component {
   state = {
@@ -20,6 +21,7 @@ class ApplicationViews extends Component {
     userDecks: [],
     allCards: [],
     deckCards: [],
+    voice: 14,
     initialized: false
   };
 
@@ -163,6 +165,15 @@ class ApplicationViews extends Component {
     });
   };
 
+  // update user voice selection
+  updateVoice = (payload, url) => {
+    UserManager.updateVoice(payload, url).then(allUsers => {
+      this.setState({
+        users: allUsers
+      });
+    });
+  };
+
   // check to see if user is logged in
   isAuthenticated = () => sessionStorage.getItem("username") !== null;
 
@@ -248,6 +259,25 @@ class ApplicationViews extends Component {
                     allCards={this.state.allCards}
                     allDecks={this.state.allDecks}
                     userDecks={this.state.userDecks}
+                    voice={this.state.voice}
+                  />
+                );
+              } else {
+                return <Redirect to="/login" />;
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={props => {
+              if (this.isAuthenticated()) {
+                return (
+                  <Profile
+                    {...props}
+                    users={this.state.users}
+                    currentUser={this.state.currentUser}
+                    updateVoice={this.updateVoice}
                   />
                 );
               } else {

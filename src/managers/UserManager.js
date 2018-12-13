@@ -1,16 +1,16 @@
-import APIManager from "./APIManager"
+import APIManager from "./APIManager";
 
 // user manager to handle database interactions for login and registration
 
 class UserManager extends APIManager {
   getUser(id) {
-    return this.get(id)
+    return this.get(id);
   }
   getAll() {
-    return this.all()
+    return this.all();
   }
   removeAndList(id) {
-    return this.delete(id).then(() => this.all())
+    return this.delete(id).then(() => this.all());
   }
   post(newUser) {
     return fetch("http://localhost:5002/user", {
@@ -19,8 +19,31 @@ class UserManager extends APIManager {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(newUser)
-    }).then(data => data.json())
+    }).then(data => data.json());
+  }
+
+  updateVoice(payload, url) {
+    return fetch(`${url}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(data => data.json())
+      .then(() => this.all());
+  }
+
+  // example of patch
+  patch(payload, url) {
+    return fetch(`${url}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    }).then(data => data.json());
   }
 }
 
-export default new UserManager("user")
+export default new UserManager("user");
