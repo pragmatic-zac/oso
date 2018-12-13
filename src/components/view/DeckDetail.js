@@ -86,6 +86,7 @@ export default class DeckDetail extends Component {
     let titleUpdateForm = "";
     let detailsUpdateForm = "";
     let createNewBtn = "";
+    // let createdBy = ""
 
     if (deck.userID === this.props.currentUser) {
       deleteDeckBtn = (

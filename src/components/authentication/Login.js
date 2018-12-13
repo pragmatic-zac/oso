@@ -56,6 +56,7 @@ export default class Login extends Component {
     // tell the user the result of the test
     console.log(testResult);
     this.props.history.push("/home")
+    window.location.reload()
   };
 
   // zac's logout function
