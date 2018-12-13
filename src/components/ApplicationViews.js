@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import { Loader, Segment, Dimmer } from "semantic-ui-react";
 import Home from "./home/Home";
@@ -163,6 +163,9 @@ class ApplicationViews extends Component {
     });
   };
 
+  // check to see if user is logged in
+  isAuthenticated = () => sessionStorage.getItem("username") !== null;
+
   render() {
     if (this.state.initialized) {
       return (
@@ -192,54 +195,64 @@ class ApplicationViews extends Component {
             exact
             path="/maindeck"
             render={props => {
-              return (
-                <MainDeck
-                  {...props}
-                  currentUser={this.state.currentUser}
-                  decks={this.state.decks}
-                  publicDecks={this.state.publicDecks}
-                  userDecks={this.state.userDecks}
-                  postNewDeck={this.postNewDeck}
-                  allDecks={this.state.allDecks}
-                />
-              );
+              if (this.isAuthenticated()) {
+                return (
+                  <MainDeck
+                    {...props}
+                    currentUser={this.state.currentUser}
+                    decks={this.state.decks}
+                    publicDecks={this.state.publicDecks}
+                    userDecks={this.state.userDecks}
+                    postNewDeck={this.postNewDeck}
+                    allDecks={this.state.allDecks}
+                  />
+                );
+              } else return <Redirect to="/login" />;
             }}
           />
           <Route
             path="/maindeck/:deckId(\d+)"
             render={props => {
-              return (
-                <DeckDetail
-                  {...props}
-                  publicDecks={this.state.publicDecks}
-                  userDecks={this.state.userDecks}
-                  allCards={this.state.allCards}
-                  deckCards={this.state.deckCards}
-                  allDecks={this.state.allDecks}
-                  currentUser={this.state.currentUser}
-                  deleteCard={this.deleteCard}
-                  deleteDeckAndCards={this.deleteDeckAndCards}
-                  updateCard={this.updateCard}
-                  updateDeck={this.updateDeck}
-                  postNewCard={this.postNewCard}
-                />
-              );
+              if (this.isAuthenticated()) {
+                return (
+                  <DeckDetail
+                    {...props}
+                    publicDecks={this.state.publicDecks}
+                    userDecks={this.state.userDecks}
+                    allCards={this.state.allCards}
+                    deckCards={this.state.deckCards}
+                    allDecks={this.state.allDecks}
+                    currentUser={this.state.currentUser}
+                    deleteCard={this.deleteCard}
+                    deleteDeckAndCards={this.deleteDeckAndCards}
+                    updateCard={this.updateCard}
+                    updateDeck={this.updateDeck}
+                    postNewCard={this.postNewCard}
+                  />
+                );
+              } else {
+                return;
+              }
             }}
           />
           <Route
             exact
             path="/flashcard"
             render={props => {
-              return (
-                <Flashcard
-                  {...props}
-                  users={this.state.users}
-                  currentUser={this.state.currentUser}
-                  allCards={this.state.allCards}
-                  allDecks={this.state.allDecks}
-                  userDecks={this.state.userDecks}
-                />
-              );
+              if (this.isAuthenticated()) {
+                return (
+                  <Flashcard
+                    {...props}
+                    users={this.state.users}
+                    currentUser={this.state.currentUser}
+                    allCards={this.state.allCards}
+                    allDecks={this.state.allDecks}
+                    userDecks={this.state.userDecks}
+                  />
+                );
+              } else {
+                return <Redirect to="/login" />;
+              }
             }}
           />
         </React.Fragment>

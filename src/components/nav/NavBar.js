@@ -11,6 +11,7 @@ export default class MenuExampleHeader extends Component {
 
   logout = () => {
     sessionStorage.clear();
+    window.location.reload()
   };
 
   render() {
