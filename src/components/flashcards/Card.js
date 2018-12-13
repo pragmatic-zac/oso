@@ -11,7 +11,7 @@ export default class CardModule extends Component {
     let sayThis = new SpeechSynthesisUtterance(word);
     // sayThis.voice = synth.getVoices()[14];
     // now getting voice from props - this is set by the user and passed down from app views
-    sayThis.voice = synth.getVoices()[this.props.voice]
+    sayThis.voice = synth.getVoices()[this.props.userVoice]
     synth.speak(sayThis);
     // wrap this in new Promise?
   };

@@ -17,13 +17,25 @@ export default class FlashcardContainer extends Component {
     deckSelected: "",
     isDeckSelected: false,
     deckSelectedID: "",
-    voice: "14"
+    voice: 14
   };
 
-  // ^ set voice here, so I only get it once instead of every time a flashcard loads
-  // 14 is Jorge, Spain Spanish
+  componentDidMount() {
+    // need to get current user's voice out of props and put in state here
 
-  // I can rig up a menu with different Spanish speakers and use that to change voice later on if I want, but 14 is default
+    for (let i = 0; i < this.props.users.length; i++) {
+      if (this.props.users[i].id === this.props.currentUser) {
+        // console.log(this.props.users[i].voice)
+        this.setState({
+          voice: this.props.users[i].voice
+        });
+        break;
+      }
+    }
+  }
+
+  // 14 is Jorge, Spain Spanish
+  // if something goes wrong with user's selection, or they don't make a selection, default to 14
 
   // function to get random card
   getRandomCard = currentCards => {
@@ -44,11 +56,7 @@ export default class FlashcardContainer extends Component {
   handleChange = (event, data) => {
     const { value } = data;
     const { key } = data.options.find(o => o.value === value);
-    // put the selected deck's ID into state
-    // this.setState({
-    //   deckSelectedID: key
-    // });
-    //
+
     // take whatever the user selected and use that to fetch cards from that deck, put them in state
     CardManager.getCardsInDeck(key).then(cards => {
       console.log(cards);
@@ -138,7 +146,7 @@ export default class FlashcardContainer extends Component {
             currentCard={this.state.currentCard}
             nextFlashcard={this.nextFlashcard}
             backToSelection={this.backToSelection}
-            voice={this.props.voice}
+            userVoice={this.state.voice}
           />
         </React.Fragment>
       );

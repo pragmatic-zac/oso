@@ -169,9 +169,8 @@ class ApplicationViews extends Component {
   updateVoice = (payload, url) => {
     UserManager.updateVoice(payload, url).then(allUsers => {
       this.setState({
-        allUsers: allUsers
+        users: allUsers
       });
-      //   console.log(allUsers);
     });
   };
 
