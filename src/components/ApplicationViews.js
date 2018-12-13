@@ -21,6 +21,7 @@ class ApplicationViews extends Component {
     userDecks: [],
     allCards: [],
     deckCards: [],
+    voice: 14,
     initialized: false
   };
 
@@ -249,6 +250,7 @@ class ApplicationViews extends Component {
                     allCards={this.state.allCards}
                     allDecks={this.state.allDecks}
                     userDecks={this.state.userDecks}
+                    voice={this.state.voice}
                   />
                 );
               } else {

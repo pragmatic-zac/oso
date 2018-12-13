@@ -138,6 +138,7 @@ export default class FlashcardContainer extends Component {
             currentCard={this.state.currentCard}
             nextFlashcard={this.nextFlashcard}
             backToSelection={this.backToSelection}
+            voice={this.props.voice}
           />
         </React.Fragment>
       );
