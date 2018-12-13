@@ -57,7 +57,7 @@ export default class CardModule extends Component {
           >
             Next Card
           </Button>
-          <Button
+          {/* <Button
             basic
             color="orange"
             onClick={() =>
@@ -67,7 +67,7 @@ export default class CardModule extends Component {
             }
           >
             Toss
-          </Button>
+          </Button> */}
           <Button
             basic
             color="green"
@@ -84,7 +84,7 @@ export default class CardModule extends Component {
           </Button>
         </div>
         <div className="flashcard-button-row-bottom">
-          <Button
+          {/* <Button
             basic
             color="grey"
             onClick={() =>
@@ -92,7 +92,7 @@ export default class CardModule extends Component {
             }
           >
             End Session
-          </Button>
+          </Button> */}
           <Button
             basic
             color="grey"
