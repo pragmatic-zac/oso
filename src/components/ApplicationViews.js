@@ -10,6 +10,7 @@ import DeckDetail from "./view/DeckDetail";
 import DecksManager from "../managers/DecksManager";
 import CardManager from "../managers/CardManager";
 import Flashcard from "./flashcards/Flashcard";
+import Profile from "./profile/Profile"
 
 class ApplicationViews extends Component {
   state = {
@@ -248,6 +249,23 @@ class ApplicationViews extends Component {
                     allCards={this.state.allCards}
                     allDecks={this.state.allDecks}
                     userDecks={this.state.userDecks}
+                  />
+                );
+              } else {
+                return <Redirect to="/login" />;
+              }
+            }}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={props => {
+              if (this.isAuthenticated()) {
+                return (
+                  <Profile
+                    {...props}
+                    users={this.state.users}
+                    currentUser={this.state.currentUser}
                   />
                 );
               } else {
