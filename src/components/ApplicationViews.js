@@ -23,14 +23,6 @@ class ApplicationViews extends Component {
     initialized: false
   };
 
-  // IDEA: run sort on ComponentWillMount - fetch all decks, then use that to fill userDecks and publicDecks
-
-  //   componentWillMount() {
-  //     const currentUser = parseInt(sessionStorage.getItem("userID"));
-
-  //     DecksManager.getUserDecks(currentUser).then((data) => console.log(data))
-  //   }
-
   componentDidMount() {
     const currentUser = parseInt(sessionStorage.getItem("userID"));
     this.setState({
@@ -139,10 +131,6 @@ class ApplicationViews extends Component {
       this.setState({ allCards: allCards });
     });
   };
-  //////
-  // small problem - this is going to reset state on allDecks, but I am using userDecks and publicDecks from separate fetches in MainDeck
-  // perhaps performance would improve if I just used allDecks on MainDeck and that would solve this problem too?
-  // leaving it for now (just to get update functional) but this needs to be addressed
 
   updateDeck = (payload, url) => {
     console.log(payload);
@@ -150,14 +138,6 @@ class ApplicationViews extends Component {
     let patchAndListAllDecks = DecksManager.patchAndListDecks(payload, url);
 
     let relistUserDecks = DecksManager.getUserDecks(this.state.currentUser);
-
-    // Promise.all([patchAndListAllDecks, relistUserDecks]).then(data => {
-    //   console.log(data);
-    //   this.setState({
-    //     allDecks: data[0],
-    //     userDecks: data[1]
-    //   });
-    // });
 
     // does promise all wait for 1 to work before 2? no! so.....
     // trying it with a callback!
@@ -176,8 +156,6 @@ class ApplicationViews extends Component {
       this.setState({ allDecks: allDecks });
     });
   };
-
-  ////////
 
   postNewCard = payload => {
     CardManager.postAndListCards(payload).then(allCards => {
@@ -244,7 +222,6 @@ class ApplicationViews extends Component {
                   updateCard={this.updateCard}
                   updateDeck={this.updateDeck}
                   postNewCard={this.postNewCard}
-                  //   history={this.history}
                 />
               );
             }}

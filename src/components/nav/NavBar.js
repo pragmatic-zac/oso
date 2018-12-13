@@ -58,7 +58,7 @@ export default class MenuExampleHeader extends Component {
     }
 
     return (
-      <Menu pointing>
+      <Menu pointing secondary>
         <Menu.Item
           as={Link}
           to="/home"
