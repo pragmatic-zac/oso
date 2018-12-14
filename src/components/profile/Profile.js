@@ -32,7 +32,7 @@ export default class UserProfile extends Component {
     return (
       <React.Fragment>
         <Container textAlign="center">
-          <Header as="h1">Your profile</Header>
+          <Header as="h1">Your Profile</Header>
           <br />
           <Header as="h3"> {currentUserInfo[0].username}</Header>
           <Message>
