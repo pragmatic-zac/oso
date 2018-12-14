@@ -14,7 +14,7 @@ export default class Home extends Component {
       // if they're not logged in, tell them to log in or register
       greeting = "Click register or log in to get started!";
     } else {
-      greeting = "What's on your mind?";
+      greeting = "Ready to learn?";
     }
 
     return (
