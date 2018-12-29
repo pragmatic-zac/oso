@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import CardManager from "../../managers/CardManager";
-import { Grid, Button, Input, Form, Modal, Header } from "semantic-ui-react";
+import { Grid, Button, Input, Form, Modal, Header, Checkbox } from "semantic-ui-react";
 import CardDisplay from "./CardDisplay";
 import PublicCardDisplay from "./PublicCardDisplay";
 
@@ -197,6 +197,10 @@ export default class DeckDetail extends Component {
             </h1>
             <div key={deck.id}>
               Description: {deck.description} {detailsUpdateForm}
+            </div>
+            {/* testing a share Checkbox - this needs to have a state that also does a patch on that deck/fetch again to re-render */}
+            <div>
+              Share <Checkbox></Checkbox>
             </div>
             <br />
             <div>

@@ -5,10 +5,9 @@ import spain from "../../images/spain.png";
 import mexico from "../../images/mexico.png";
 
 export default class UserProfile extends Component {
-  
   // this function makes an object that is then patched to the server - updates the current user's voice selection
   // is also refetches users in app views and resets state
-    onClick = (number) => {
+  onClick = number => {
     let url = `http://localhost:5002/user/${this.props.currentUser}`;
     // make the payload
     const voiceToPatch = {
@@ -29,6 +28,27 @@ export default class UserProfile extends Component {
 
     console.log(currentUserInfo[0]);
 
+    // switch statement to show user what voice they've selected
+    let currentVoiceSelection = "";
+
+    switch (currentUserInfo[0].voice) {
+      case 14:
+        currentVoiceSelection = "Jorge";
+        break;
+
+      case 15:
+        currentVoiceSelection = "Juan";
+        break;
+
+      case 31:
+        currentVoiceSelection = "Paulina";
+        break;
+
+      case 29:
+        currentVoiceSelection = "Monica";
+        break;
+    }
+
     return (
       <React.Fragment>
         <Container textAlign="center">
@@ -38,7 +58,8 @@ export default class UserProfile extends Component {
           <Message>
             <Header as="h5">Select Your Voice</Header>
             <p className="currentVoice">
-              Current selection: {currentUserInfo[0].voice}
+              Current selection: {currentVoiceSelection}
+              {/* {currentUserInfo[0].voice} */}
               {/* refactor this to pull from state, currently it lags behind */}
             </p>
             <br />
