@@ -1,44 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Oso
 
-## Available Scripts
+Oso is a Spanish-learning app that is based on flashcards and incorporates multiple forms of user interaction with both text and speech, using web speech API for TTS and STT.  Built using React and styled with Semantic UI and CSS, Oso is designed to be a CRUD app and is supported by a flat data-structure utilizing JSON Server.
 
-In the project directory, you can run:
+I built this application for my front end capstone project for Nashville Software School.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+To start, you'll need to download and install NPM. [Get it here.](https://www.npmjs.com/get-npm)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing
 
-### `npm run build`
+Open your command line and type
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+git clone git@github.com:zacjones91/oso.git
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Now we need to start the server. Navigate to the api folder by typing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+cd api
+```
 
-### `npm run eject`
+To start the server, type
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+json-server -w -p 5002 database.json
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Open a second command line window and navigate to the same directory. To start the app, type
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm start
+``` 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Using the app
 
-## Learn More
+If you'd like to see an existing user's login, try logging in with username "zac" and password "saban".
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Note that this version of Oso does not offer secure storage. Don't save anything sensitive to this database!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Now that you have the app installed and running, let's learn Spanish the Oso way!
+
+### Check your flashcards
+
+Click on "All Decks" to see what card decks are available to you. Your decks are displayed on the left, and universally available decks appear on the right. Click on a deck to see the cards in it.
+
+If the selected deck belongs to another user, you may view the cards, but not create/edit/delete.
+
+If the selected deck belongs to you, you may edit or delete any of the cards. You may also add as many new cards as you want.
+
+### Take a quiz
+
+Click on "Flashcards" to launch the flashcard module. You will be presented with two dropdown menus, one with public decks and one with your private decks. Once you select a deck, press "Launch Quiz".
+
+You will be presented with the front of your first flashcard. To see the back, simply hover over the card. Press "Next Card" and you'll be presented with a new random card from your deck.
+
+If you'd like to hear the word spoken to you, press "Listen".
+
+If you'd like to test your pronunciation, press "Speak". If it's your first time using Oso, the app will ask for permission to use your microphone. Grant the permission. Now you can speak the word on the flashcard and see if you got it right!
+
+### Change voice
+
+Oso offers four different voices - two speakers from Spain and two from Mexico. If you'd like to select a different one, click on your username and choose your preferred voice. Your preference will be saved automatically.
+
+## Built With
+
+* [React](https://reactjs.org/) - Web framework
+* [NPM](https://www.npmjs.com/) - Dependency management
+* [Semantic UI React](https://react.semantic-ui.com/) - Styling components
+
+## Future versions
+
+I plan to deploy Oso using Heroku.
+
+In version 2.0 of Oso, I plan to implement
+* Deck sharing
+* Universally available learning materials (grammar, culture, etc.)
+* User progress tracking and study notes
+* Secure login via Auth0
