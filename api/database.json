@@ -1,0 +1,266 @@
+{
+  "user": [
+    {
+      "username": "admin",
+      "password": "password",
+      "id": 0,
+      "voice": 14
+    },
+    {
+      "username": "zac",
+      "password": "saban",
+      "id": 1,
+      "voice": 29
+    },
+    {
+      "username": "aimee",
+      "password": "tide",
+      "id": 2,
+      "voice": 15
+    }
+  ],
+  "decks": [
+    {
+      "id": 1,
+      "name": "Animals",
+      "description": "Wanna go on a picnic? Alpaca lunch.",
+      "shared": false,
+      "userID": 1
+    },
+    {
+      "id": 2,
+      "name": "Clothes",
+      "description": "A lovely deck for learning clothes",
+      "shared": true,
+      "userID": 0
+    },
+    {
+      "id": 3,
+      "name": "Colors",
+      "description": "Aimee's shared deck for learning colors",
+      "shared": true,
+      "userID": 2
+    },
+    {
+      "id": 4,
+      "name": "Grammar",
+      "description": "Zac's deck to be edited and deleted",
+      "shared": false,
+      "userID": 1
+    },
+    {
+      "name": "Emotions",
+      "description": "😀 😑 😤 🙄",
+      "shared": true,
+      "userID": 0,
+      "id": 7
+    },
+    {
+      "name": "Cheese",
+      "description": "Hey Andy",
+      "shared": false,
+      "userID": 1,
+      "id": 8
+    }
+  ],
+  "cards": [
+    {
+      "id": 1,
+      "front": "perro",
+      "back": "dog",
+      "deckID": 1
+    },
+    {
+      "id": 2,
+      "front": "gato",
+      "back": "cat",
+      "deckID": 1
+    },
+    {
+      "id": 3,
+      "front": "oso",
+      "back": "bear",
+      "deckID": 1
+    },
+    {
+      "id": 4,
+      "front": "camisa",
+      "back": "shirt",
+      "deckID": 2
+    },
+    {
+      "id": 5,
+      "front": "pantalones",
+      "back": "pants",
+      "deckID": 2
+    },
+    {
+      "id": 6,
+      "front": "naranja",
+      "back": "orange",
+      "deckID": 3
+    },
+    {
+      "id": 7,
+      "front": "negro",
+      "back": "black",
+      "deckID": 3
+    },
+    {
+      "id": 8,
+      "front": "verde",
+      "back": "green",
+      "deckID": 3
+    },
+    {
+      "id": 9,
+      "front": "testy boi",
+      "back": "another edit",
+      "deckID": 4
+    },
+    {
+      "id": 10,
+      "front": "hey zac edit this card",
+      "back": "pls",
+      "deckID": 4
+    },
+    {
+      "front": "vestido",
+      "back": "dress",
+      "deckID": 2,
+      "id": 18
+    },
+    {
+      "front": "bufanda",
+      "back": "scarf",
+      "deckID": 2,
+      "id": 19
+    },
+    {
+      "front": "zapatos",
+      "back": "shoes",
+      "deckID": 2,
+      "id": 20
+    },
+    {
+      "front": "calcetines",
+      "back": "socks",
+      "deckID": 2,
+      "id": 21
+    },
+    {
+      "front": "feliz",
+      "back": "happy",
+      "deckID": 7,
+      "id": 22
+    },
+    {
+      "front": "triste",
+      "back": "sad",
+      "deckID": 7,
+      "id": 23
+    },
+    {
+      "front": "enojado",
+      "back": "angry",
+      "deckID": 7,
+      "id": 24
+    },
+    {
+      "front": "emocionado",
+      "back": "excited",
+      "deckID": 7,
+      "id": 25
+    },
+    {
+      "front": "soprendido",
+      "back": "surprise",
+      "deckID": 7,
+      "id": 26
+    },
+    {
+      "front": "pájaro",
+      "back": "bird",
+      "deckID": 1,
+      "id": 27
+    },
+    {
+      "front": "mono",
+      "back": "monkey",
+      "deckID": 1,
+      "id": 28
+    },
+    {
+      "front": "serpiente",
+      "back": "danger noodle",
+      "deckID": 1,
+      "id": 29
+    },
+    {
+      "front": "here is",
+      "back": "a card",
+      "deckID": 8,
+      "id": 30
+    },
+    {
+      "front": "tets",
+      "back": "edit",
+      "deckID": 8,
+      "id": 31
+    },
+    {
+      "front": "jirafa",
+      "back": "long neck horse",
+      "deckID": 1,
+      "id": 32
+    },
+    {
+      "front": "mapache",
+      "back": "racoon",
+      "deckID": 1,
+      "id": 33
+    }
+  ],
+  "deck_cards": [
+    {
+      "id": 1,
+      "deckID": 1,
+      "cardID": 1
+    },
+    {
+      "id": 2,
+      "deckID": 1,
+      "cardID": 2
+    },
+    {
+      "id": 3,
+      "deckID": 1,
+      "cardID": 3
+    },
+    {
+      "id": 4,
+      "deckID": 2,
+      "cardID": 4
+    },
+    {
+      "id": 5,
+      "deckID": 2,
+      "cardID": 5
+    },
+    {
+      "id": 6,
+      "deckID": 3,
+      "cardID": 6
+    },
+    {
+      "id": 7,
+      "deckID": 3,
+      "cardID": 7
+    },
+    {
+      "id": 8,
+      "deckID": 3,
+      "cardID": 8
+    }
+  ]
+}
