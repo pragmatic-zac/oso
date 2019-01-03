@@ -20,6 +20,13 @@ Open your command line and type
 git clone git@github.com:zacjones91/oso.git
 ```
 
+One more step for installing everything...
+
+```
+npm install
+```
+
+
 Now we need to start the server. Navigate to the api folder by typing
 
 ```

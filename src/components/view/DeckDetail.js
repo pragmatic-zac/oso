@@ -199,9 +199,9 @@ export default class DeckDetail extends Component {
               Description: {deck.description} {detailsUpdateForm}
             </div>
             {/* testing a share Checkbox - this needs to have a state that also does a patch on that deck/fetch again to re-render */}
-            <div>
+            {/* <div>
               Share <Checkbox></Checkbox>
-            </div>
+            </div> */}
             <br />
             <div>
               {createNewBtn} {editDeckNameBtn} {deleteDeckBtn}
