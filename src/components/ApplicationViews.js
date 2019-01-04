@@ -64,25 +64,12 @@ class ApplicationViews extends Component {
       });
     });
 
-<<<<<<< HEAD
-    // let loadDeckCards = CardManager.getDeckCards().then(deckCards => {
-    //   this.setState({
-    //     deckCards: deckCards
-    //   });
-    // });
-
-=======
->>>>>>> master
     Promise.all([
       usersLoading,
       decksLoading,
       loadUserDecks,
       loadPublicDecks,
       loadCards
-<<<<<<< HEAD
-      // loadDeckCards
-=======
->>>>>>> master
     ]).then(() => {
       this.setState({
         initialized: true
@@ -102,9 +89,6 @@ class ApplicationViews extends Component {
 
   // delete decks and relist - but also delete the cards associated with that deck
   deleteDeckAndCards = deckID => {
-    // consider setting initialized state to false until the data comes back
-    // and also history.push to maindeck page
-
     DecksManager.deleteDeck(deckID)
       .then(allDecks => {
         this.setState({
