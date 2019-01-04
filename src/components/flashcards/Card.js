@@ -25,7 +25,7 @@ export default class CardModule extends Component {
     recognition.grammars = recogWord;
     recognition.onresult = function(event) {
       const userSaid = event.results[0][0].transcript;
-      console.log(userSaid);
+      // console.log(userSaid);
       if (userSaid === word) {
         alert("Good job!");
       } else {
@@ -36,7 +36,7 @@ export default class CardModule extends Component {
   };
 
   render() {
-    console.log(this.props.currentCard);
+    // console.log(this.props.currentCard);
     return (
       <React.Fragment>
         <div className="fcard-container">

@@ -20,7 +20,6 @@ class ApplicationViews extends Component {
     publicDecks: [],
     userDecks: [],
     allCards: [],
-    // deckCards: [],
     voice: 14,
     initialized: false
   };
@@ -65,19 +64,25 @@ class ApplicationViews extends Component {
       });
     });
 
+<<<<<<< HEAD
     // let loadDeckCards = CardManager.getDeckCards().then(deckCards => {
     //   this.setState({
     //     deckCards: deckCards
     //   });
     // });
 
+=======
+>>>>>>> master
     Promise.all([
       usersLoading,
       decksLoading,
       loadUserDecks,
       loadPublicDecks,
       loadCards
+<<<<<<< HEAD
       // loadDeckCards
+=======
+>>>>>>> master
     ]).then(() => {
       this.setState({
         initialized: true
@@ -135,7 +140,7 @@ class ApplicationViews extends Component {
   };
 
   updateDeck = (payload, url) => {
-    console.log(payload);
+    // console.log(payload);
 
     let patchAndListAllDecks = DecksManager.patchAndListDecks(payload, url);
 
@@ -231,7 +236,6 @@ class ApplicationViews extends Component {
                     publicDecks={this.state.publicDecks}
                     userDecks={this.state.userDecks}
                     allCards={this.state.allCards}
-                    // deckCards={this.state.deckCards}
                     allDecks={this.state.allDecks}
                     currentUser={this.state.currentUser}
                     deleteCard={this.deleteCard}

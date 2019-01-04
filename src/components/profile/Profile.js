@@ -15,7 +15,7 @@ export default class UserProfile extends Component {
       voice: parseInt(number)
     };
 
-    console.log(voiceToPatch);
+    // console.log(voiceToPatch);
 
     this.props.updateVoice(voiceToPatch, url);
   };
@@ -26,7 +26,7 @@ export default class UserProfile extends Component {
       return user.id === this.props.currentUser;
     });
 
-    console.log(currentUserInfo[0]);
+    // console.log(currentUserInfo[0]);
 
     // switch statement to show user what voice they've selected
     let currentVoiceSelection = "";

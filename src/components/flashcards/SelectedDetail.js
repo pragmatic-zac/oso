@@ -4,7 +4,7 @@ import { Header, Button } from "semantic-ui-react";
 export default class SelectedDetail extends Component {
   render() {
     let deckLength = this.props.cards.length;
-    console.log(deckLength);
+    // console.log(deckLength);
 
     let details = "";
 

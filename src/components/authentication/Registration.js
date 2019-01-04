@@ -27,7 +27,7 @@ export default class Login extends Component {
 
   // logout function
   logout = () => {
-    console.log("logout clicked");
+    // console.log("logout clicked");
     // clear out session storage
     sessionStorage.clear();
   };
