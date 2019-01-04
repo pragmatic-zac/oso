@@ -47,6 +47,8 @@ export default class UserProfile extends Component {
       case 29:
         currentVoiceSelection = "Monica";
         break;
+      default:
+        currentVoiceSelection = "Jorge";
     }
 
     return (
