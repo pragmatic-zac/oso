@@ -1,6 +1,6 @@
 # Oso
 
-[[https://github.com/zacjones91/oso/blob/master/src/images/oso%202.png?raw=true]]
+![oso_logo](https://github.com/zacjones91/oso/blob/master/src/images/oso%202.png?raw=true)
 
 Oso is a Spanish-learning app that is based on flashcards and incorporates multiple forms of user interaction with both text and speech, using web speech API for TTS and STT.  Built using React and styled with Semantic UI and CSS, Oso is designed to be a CRUD app and is supported by a flat data-structure utilizing JSON Server.
 
