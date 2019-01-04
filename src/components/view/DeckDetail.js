@@ -48,7 +48,7 @@ export default class DeckDetail extends Component {
       deckID: this.state.deck
     };
 
-    console.log(newCardToSave);
+    // console.log(newCardToSave);
     this.props.postNewCard(newCardToSave);
     // set state back so they're not on the next card, close modal
     this.setState({ front: "", back: "", open: false });

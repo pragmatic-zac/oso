@@ -135,7 +135,7 @@ class ApplicationViews extends Component {
   };
 
   updateDeck = (payload, url) => {
-    console.log(payload);
+    // console.log(payload);
 
     let patchAndListAllDecks = DecksManager.patchAndListDecks(payload, url);
 

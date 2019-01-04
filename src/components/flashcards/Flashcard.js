@@ -59,7 +59,7 @@ export default class FlashcardContainer extends Component {
 
     // take whatever the user selected and use that to fetch cards from that deck, put them in state
     CardManager.getCardsInDeck(key).then(cards => {
-      console.log(cards);
+      // console.log(cards);
       this.setState({
         deckSelectedID: key,
         cards: cards
@@ -68,7 +68,7 @@ export default class FlashcardContainer extends Component {
 
     // fetch details about selected deck
     DecksManager.getSpecificDeck(key).then(deck => {
-      console.log(deck);
+      // console.log(deck);
       this.setState({
         deckSelected: deck,
         isDeckSelected: true
@@ -81,7 +81,7 @@ export default class FlashcardContainer extends Component {
     // console.log(this.state.deckSelectedID);
 
     CardManager.getCardsInDeck(this.state.deckSelectedID).then(cards => {
-      console.log(cards);
+      // console.log(cards);
       this.setState({
         cards: cards
       });
