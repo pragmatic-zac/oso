@@ -1,6 +1,6 @@
 // generic API manager module that can be extended for a variety of modules
 
-const remoteURL = "http://localhost:5002"
+const remoteURL = "https://oso-server.herokuapp.com/"
 
 class APIManager {
     constructor(route) {

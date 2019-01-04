@@ -23,7 +23,7 @@ export default class MainDeck extends Component {
     };
     // console.log(editedCard);
 
-    let url = `http://localhost:5002/cards/${this.props.card.id}`;
+    let url = `https://oso-server.herokuapp.com/cards/${this.props.card.id}`;
 
     // and send to database!
     this.props.updateCard(editedCard, url);

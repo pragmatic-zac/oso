@@ -8,14 +8,14 @@ class DeckManager extends APIManager {
   }
 
   getUserDecks(user) {
-    return fetch(`http://localhost:5002/decks?userID=${user}`).then(data =>
+    return fetch(`https://oso-server.herokuapp.com/decks?userID=${user}`).then(data =>
       data.json()
     );
   }
 
   getPublicDecks(user) {
     return fetch(
-      `http://localhost:5002/decks?userID_ne=${user}&shared=true`
+      `https://oso-server.herokuapp.com/decks?userID_ne=${user}&shared=true`
     ).then(data => data.json());
   }
 
@@ -36,19 +36,6 @@ class DeckManager extends APIManager {
     return this.get(id);
   }
 
-  //   removeAndList(id) {
-  //     return this.delete(id).then(() => this.all())
-  //   }
-
-  //   post(newUser) {
-  //     return fetch("http://localhost:5002/user", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(newUser)
-  //     }).then(data => data.json())
-  //   }
 }
 
 export default new DeckManager("decks");

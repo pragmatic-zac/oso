@@ -8,7 +8,7 @@ export default class UserProfile extends Component {
   // this function makes an object that is then patched to the server - updates the current user's voice selection
   // is also refetches users in app views and resets state
   onClick = number => {
-    let url = `http://localhost:5002/user/${this.props.currentUser}`;
+    let url = `https://oso-server.herokuapp.com/user/${this.props.currentUser}`;
     // make the payload
     const voiceToPatch = {
       id: this.props.currentUser,

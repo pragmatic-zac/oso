@@ -2,7 +2,7 @@ import APIManager from "./APIManager";
 
 // card manager to handle database interactions for individual cards
 
-const remURL = "http://localhost:5002";
+const remURL = "https://oso-server.herokuapp.com";
 
 class CardManager extends APIManager {
   // basic fetch to get all cards
@@ -10,16 +10,8 @@ class CardManager extends APIManager {
     return this.all();
   }
 
-  // hard coded for now, eventually need id to be an argument
-  getDeckCards() {
-    return fetch(`http://localhost:5002/deck_cards?deckID=1`).then(data =>
-      data.json()
-    );
-  }
-
-  // hardcoded for now, eventually "deck" needs to be in here on deck detail page where I'm calling it
   getCardsInDeck(deckID) {
-    return fetch(`http://localhost:5002/cards?deckID=${deckID}`).then(data =>
+    return fetch(`${remURL}/cards?deckID=${deckID}`).then(data =>
       data.json()
     );
   }
@@ -46,8 +38,5 @@ class CardManager extends APIManager {
     return this.post(payload).then(() => this.all());
   }
 }
-
-// localhost:5002/cards?deckID=4
-// `${remURL}/${this.route}?deckID=${deckID}`
 
 export default new CardManager("cards");

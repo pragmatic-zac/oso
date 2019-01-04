@@ -13,7 +13,7 @@ class UserManager extends APIManager {
     return this.delete(id).then(() => this.all());
   }
   post(newUser) {
-    return fetch("http://localhost:5002/user", {
+    return fetch("https://oso-server.herokuapp.com/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

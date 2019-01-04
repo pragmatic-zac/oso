@@ -33,7 +33,7 @@ export default class DeckDetail extends Component {
       description: this.state.description
     };
 
-    let url = `http://localhost:5002/decks/${this.state.deck}`;
+    let url = `https://oso-server.herokuapp.com/${this.state.deck}`;
     this.props.updateDeck(editedDeckDetails, url);
 
     // also set state back so that fields go away
