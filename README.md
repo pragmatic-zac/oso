@@ -59,7 +59,7 @@ Now that you have the app installed and running, let's learn Spanish the Oso way
 
 Click on "All Decks" to see what card decks are available to you. Your decks are displayed on the left, and universally available decks appear on the right. Click on a deck to see the cards in it.
 
-![deckview](https://gph.is/2RdZjXy)
+![deckview](https://github.com/zacjones91/oso/blob/master/readmeimages/images/alldeckview.gif?raw=true)
 
 If the selected deck belongs to another user, you may view the cards, but not create/edit/delete.
 
