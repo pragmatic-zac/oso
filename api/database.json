@@ -10,7 +10,7 @@
       "username": "zac",
       "password": "saban",
       "id": 1,
-      "voice": 29
+      "voice": 15
     },
     {
       "username": "aimee",
@@ -43,8 +43,8 @@
     },
     {
       "id": 4,
-      "name": "Grammar",
-      "description": "Zac's deck to be edited and deleted",
+      "name": "Verbs",
+      "description": "Deck to study verbs ",
       "shared": false,
       "userID": 1
     },
@@ -56,8 +56,8 @@
       "id": 7
     },
     {
-      "name": "Cheese",
-      "description": "Hey Andy",
+      "name": "Phrases",
+      "description": "Deck to learn fun phrases in Spanish",
       "shared": false,
       "userID": 1,
       "id": 8
@@ -114,14 +114,14 @@
     },
     {
       "id": 9,
-      "front": "testy boi",
-      "back": "another edit",
+      "front": "comer",
+      "back": "to eat",
       "deckID": 4
     },
     {
       "id": 10,
-      "front": "hey zac edit this card",
-      "back": "pls",
+      "front": "vivir",
+      "back": "to live",
       "deckID": 4
     },
     {
@@ -197,14 +197,14 @@
       "id": 29
     },
     {
-      "front": "here is",
-      "back": "a card",
+      "front": "plumas rojas",
+      "back": "red pens",
       "deckID": 8,
       "id": 30
     },
     {
-      "front": "tets",
-      "back": "edit",
+      "front": "la chica inteligente",
+      "back": "the smart girl",
       "deckID": 8,
       "id": 31
     },
@@ -219,48 +219,18 @@
       "back": "racoon",
       "deckID": 1,
       "id": 33
-    }
-  ],
-  "deck_cards": [
-    {
-      "id": 1,
-      "deckID": 1,
-      "cardID": 1
     },
     {
-      "id": 2,
-      "deckID": 1,
-      "cardID": 2
+      "front": "hablar",
+      "back": "to speak",
+      "deckID": 4,
+      "id": 34
     },
     {
-      "id": 3,
-      "deckID": 1,
-      "cardID": 3
-    },
-    {
-      "id": 4,
-      "deckID": 2,
-      "cardID": 4
-    },
-    {
-      "id": 5,
-      "deckID": 2,
-      "cardID": 5
-    },
-    {
-      "id": 6,
-      "deckID": 3,
-      "cardID": 6
-    },
-    {
-      "id": 7,
-      "deckID": 3,
-      "cardID": 7
-    },
-    {
-      "id": 8,
-      "deckID": 3,
-      "cardID": 8
+      "front": "computadora rápida",
+      "back": "fast computer",
+      "deckID": 8,
+      "id": 35
     }
   ]
 }
